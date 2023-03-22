@@ -14,7 +14,7 @@ const NavigationProvider = ({children}) => {
       window.addEventListener("popstate", handler);
 
       return () => {
-        window.removeEventListener("popstate");
+        window.removeEventListener("popstate", handler);
       };
     }, []);
 

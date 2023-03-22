@@ -15,8 +15,7 @@ const HomePage = () => {
       as="div"
       height="100%"
       width="100%"
-      backgroundColor="var(--amplify-colors-neutral-90)"
-    >
+      backgroundColor="var(--amplify-colors-neutral-90)">
       <Flex 
         direction="column" 
         justifyContent="space-between" 
@@ -45,13 +44,13 @@ const HomePage = () => {
           border="1px solid var(--amplify-colors-black)" />
 
         <HomeFaqView 
-          height={{ base: "90vh", small: "70vh", medium: "85vh", xl: "80vh", xxl: "80vh"}}
+          height={{ base: "130vh", small: "80vh", medium: "85vh", xl: "80vh", xxl: "80vh"}}
           width="100%" 
           backgroundColor="var(--amplify-colors-black)"
           border="1px solid var(--amplify-colors-black)" />
 
         <HomeFooterView 
-          height="30vh"
+          height={{ base: "90vh", small: "70vh", medium: "60vh", xl: "50vh", xxl: "50vh"}}
           width="100%" 
           backgroundColor="var(--amplify-colors-black)"
           border="1px solid var(--amplify-colors-black)" />

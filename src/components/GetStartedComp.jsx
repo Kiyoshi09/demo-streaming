@@ -1,8 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Button, Flex, TextField, View } from '@aws-amplify/ui-react';
+import useNavigation from '../hooks/use-navigation';
+import EmailValidator from 'email-validator';
 
 const GetStartedComp = () => {
+
+  const [ email, setEmail ] = useState('');
+  const [ isEmailValid, setIsEmailValid ] = useState(false);
+  const { navigate } = useNavigation();
+
+  const handleEmailInput = (e) => {
+    setEmail(e.target.value)
+  }
+
+  const handleClickSignUp = (event, to) => {
+    if(event.metaKey || event.ctrlKey) {
+      return;
+    }
+
+    if (! EmailValidator.validate(email)) {
+      return;
+    }
+
+    event.preventDefault();
+    navigate(to);
+  }
+
   return (
     <View paddingBlock="2rem 2rem">
       <Flex
@@ -13,10 +37,12 @@ const GetStartedComp = () => {
         gap="0.3rem">
           
           <StyledInputEmailContainer>
-            <StyledTextField label="email" labelHidden type="email" size='large' />
-            <StyledTextLabel>Email address</StyledTextLabel>
+            <StyledTextField label="email" labelHidden type="email" size='large' onChange={handleEmailInput}/>
+            {
+              email ? <StyledTextLabel></StyledTextLabel> : <StyledTextLabel>Email address</StyledTextLabel>
+            }
           </StyledInputEmailContainer>
-          <StyledButtonGetStart variation='primary'>Get Started</StyledButtonGetStart>
+          <StyledButtonGetStart variation='primary' onClick={(e) => handleClickSignUp(e, '/Auth')}>Get Started</StyledButtonGetStart>
 
       </Flex>
     </View>

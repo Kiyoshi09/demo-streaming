@@ -2,9 +2,21 @@ import React from 'react';
 import styled from 'styled-components';
 import { Button, Flex, Image, Text, View } from '@aws-amplify/ui-react';
 import GetStartedComp from './GetStartedComp';
+import useNavigation from '../hooks/use-navigation';
 
 
 const HomeTopView = (props) => {
+  const { navigate } = useNavigation();
+
+  const handleClickSignIn = (event, to) => {
+    if(event.metaKey || event.ctrlKey) {
+      return;
+    }
+
+    event.preventDefault();
+    navigate(to);
+  }
+
   return (
     <StyledViewHomeTopContainer {...props}>
       <Image 
@@ -51,7 +63,7 @@ const HomeTopView = (props) => {
             top="20px"
             right={{ base: "25px", small: "60px", medium: "80px", large: "120px", xl: "200px"}}>
 
-            <StyledButtonSignIn variation='primary'>Sign In</StyledButtonSignIn>
+            <StyledButtonSignIn variation='primary' onClick={(event) => handleClickSignIn(event, '/Auth')} >Sign In</StyledButtonSignIn>
 
           </View>
         </Flex>
