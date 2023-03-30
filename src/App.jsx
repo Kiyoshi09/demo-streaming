@@ -1,9 +1,9 @@
+import { ThemeProvider } from '@aws-amplify/ui-react';
+import { Amplify } from 'aws-amplify';
+
 import Route from "./components/Route";
 import HomePage from "./pages/HomePage";
-import AuthPage from "./pages/AuthPage";
-import ProfilePage from "./pages/ProfilePage";
-import VideoListPage from "./pages/VideoListPage";
-import { ThemeProvider } from '@aws-amplify/ui-react';
+import AuthenticatedPage from "./pages/AuthenticatedPage";
 
 import './App.css';
 
@@ -18,28 +18,29 @@ const theme = {
   }
 }
 
+Amplify.configure({
+  Auth: {
+    identityPoolId: 'ap-northeast-1:1cf5676b-aa4d-41c3-93b2-65f8fe846679',
+    region: 'ap-northeast-1',
+    userPoolId: 'ap-northeast-1_lm7TkMIqA',
+    userPoolWebClientId: '4oqbglv93c703lditfscc641m8',
+  }
+})
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <div>
         <Route path="/">
           <HomePage />
         </Route>
 
         <Route path="/auth">
-          <AuthPage />
+          <AuthenticatedPage />
         </Route>
 
-        <Route path="/profile">
-          <ProfilePage />
+        <Route path="/auth/videolist">
+          <AuthenticatedPage />
         </Route>
-
-        <Route path="/videos">
-          <VideoListPage />
-        </Route>
-
-      </div>
     </ThemeProvider>
   );
 }

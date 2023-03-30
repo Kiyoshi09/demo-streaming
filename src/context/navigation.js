@@ -5,6 +5,7 @@ const NavigationContext = createContext();
 const NavigationProvider = ({children}) => {
 
     const [currentPath, setCurrentPath] = useState(window.location.pathname);
+    const [email, setEmail] = useState('');
 
     useEffect(() => {
       const handler = () => {
@@ -18,13 +19,16 @@ const NavigationProvider = ({children}) => {
       };
     }, []);
 
-    const navigate = (to) => {
-      window.history.pushState({}, "", to);
-      setCurrentPath(to);
+    const navigate = (urlInfo) => {
+      setEmail(urlInfo.email);
+
+      window.history.pushState({}, "", urlInfo.to);
+      setCurrentPath(urlInfo.to);
     };
 
+
     return (
-      <NavigationContext.Provider value={{ currentPath, navigate }}>
+      <NavigationContext.Provider value={{ currentPath, navigate, email }}>
         {children}
       </NavigationContext.Provider>
     );

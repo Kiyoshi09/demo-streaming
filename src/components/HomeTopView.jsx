@@ -14,7 +14,7 @@ const HomeTopView = (props) => {
     }
 
     event.preventDefault();
-    navigate(to);
+    navigate({ to, email: "" });
   }
 
   return (
@@ -63,7 +63,7 @@ const HomeTopView = (props) => {
             top="20px"
             right={{ base: "25px", small: "60px", medium: "80px", large: "120px", xl: "200px"}}>
 
-            <StyledButtonSignIn variation='primary' onClick={(event) => handleClickSignIn(event, '/Auth')} >Sign In</StyledButtonSignIn>
+            <StyledButtonSignIn variation='primary' onClick={(event) => handleClickSignIn(event, '/auth')} >Sign In</StyledButtonSignIn>
 
           </View>
         </Flex>

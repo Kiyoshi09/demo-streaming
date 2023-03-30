@@ -7,10 +7,12 @@ import EmailValidator from 'email-validator';
 const GetStartedComp = () => {
 
   const [ email, setEmail ] = useState('');
-  const [ isEmailValid, setIsEmailValid ] = useState(false);
+  const [ isEmailValid, setIsEmailValid ] = useState(true);
+
   const { navigate } = useNavigation();
 
   const handleEmailInput = (e) => {
+    setIsEmailValid(true);
     setEmail(e.target.value)
   }
 
@@ -20,11 +22,31 @@ const GetStartedComp = () => {
     }
 
     if (! EmailValidator.validate(email)) {
+      setIsEmailValid(false);
       return;
     }
 
     event.preventDefault();
-    navigate(to);
+    navigate({ to, email });
+  }
+
+  const handleEmailInputFocus = () => {
+    setIsEmailValid(true);
+  }
+
+  const EmailLabel = () => {
+    
+    if(isEmailValid === true) {
+      if(email === "") {
+        return <StyledTextLabel>Email address</StyledTextLabel>;
+      }
+      else {
+        return <StyledTextLabelFocused>Email address</StyledTextLabelFocused>;
+      }
+    }
+    else {
+      return <StyledTextLabelInvalidEmail>Invalid email address</StyledTextLabelInvalidEmail>
+    }
   }
 
   return (
@@ -37,12 +59,19 @@ const GetStartedComp = () => {
         gap="0.3rem">
           
           <StyledInputEmailContainer>
-            <StyledTextField label="email" labelHidden type="email" size='large' onChange={handleEmailInput}/>
+            <StyledTextField 
+              label="email" 
+              labelHidden 
+              type="email" 
+              size='large' 
+              onChange={handleEmailInput} 
+              onFocus={handleEmailInputFocus}/>
             {
-              email ? <StyledTextLabel></StyledTextLabel> : <StyledTextLabel>Email address</StyledTextLabel>
+              //email ? <StyledTextLabel></StyledTextLabel> : <StyledTextLabel>Email address</StyledTextLabel>
+              EmailLabel()
             }
           </StyledInputEmailContainer>
-          <StyledButtonGetStart variation='primary' onClick={(e) => handleClickSignUp(e, '/Auth')}>Get Started</StyledButtonGetStart>
+          <StyledButtonGetStart variation='primary' onClick={(e) => handleClickSignUp(e, `/auth`)}>Get Started</StyledButtonGetStart>
 
       </Flex>
     </View>
@@ -87,6 +116,26 @@ const StyledTextLabel = styled.label`
   top: 12px;
   color: var(--amplify-colors-white);
 `;
+
+
+const StyledTextLabelFocused = styled(StyledTextLabel)`
+  top: -24px;
+  left: 0;
+  width: 40%;
+  color: var(--amplify-colors-teal-40);
+  font-weight: 700;
+  font-size: 14px;
+  font-family: Ubuntu;
+  padding-left: 6px;
+  text-transform: uppercase;
+  z-index: 1;
+`;
+
+const StyledTextLabelInvalidEmail = styled(StyledTextLabelFocused)`
+  width: 60%;
+  color: var(--amplify-colors-red-90);
+`;
+
 
 const StyledButtonGetStart = styled(Button)`
   height: 53px;
