@@ -15,6 +15,9 @@
       "auth": {
         "tealiumlabsstreaming514c17c4": {},
         "tealiumlabsstreaming60889a36": {}
+      },
+      "api": {
+        "tealiumlabsstreaming": {}
       }
     }
   }
