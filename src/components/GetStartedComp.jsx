@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Button, Flex, TextField, View } from '@aws-amplify/ui-react';
 import useNavigation from '../hooks/use-navigation';
 import EmailValidator from 'email-validator';
+import useUserInfo from '../hooks/use-userinfo';
 
 const GetStartedComp = () => {
 
@@ -10,6 +11,7 @@ const GetStartedComp = () => {
   const [ isEmailValid, setIsEmailValid ] = useState(true);
 
   const { navigate } = useNavigation();
+  const { setUserInfo } = useUserInfo();
 
   const handleEmailInput = (e) => {
     setIsEmailValid(true);
@@ -27,7 +29,9 @@ const GetStartedComp = () => {
     }
 
     event.preventDefault();
-    navigate({ to, email });
+
+    setUserInfo(email);
+    navigate({ to });
   }
 
   const handleEmailInputFocus = () => {

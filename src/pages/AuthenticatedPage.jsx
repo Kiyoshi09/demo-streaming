@@ -1,20 +1,19 @@
-// import { Auth } from 'aws-amplify';
 import React from 'react';
 import AuthComponent from '../components/AuthComponent';
 import AuthenticatedContainer from '../components/AuthenticatedContainer';
-import useNavigation from '../hooks/use-navigation';
+import useUserInfo from '../hooks/use-userinfo';
 
 const AuthenticatedPage = () => {
-  const { email } = useNavigation();
+  const { email } = useUserInfo();
 
   return (
-      <AuthComponent initialState={email ? "signUp" : "signIn"} email={email || ""}>
-        {
-          ({ signOut, user }) => (
-              <AuthenticatedContainer signOut={signOut} user={user} />
-          ) 
-        }
-      </AuthComponent>
+    <AuthComponent initialState={email ? "signUp" : "signIn"} email={email || ""}>
+      {
+        ({ signOut, user }) => (
+            <AuthenticatedContainer signOut={signOut} user={user} />
+        ) 
+      }
+    </AuthComponent>
   );
 
 }

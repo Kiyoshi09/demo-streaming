@@ -4,7 +4,6 @@ import { Text, View, Link, Image, Heading, Authenticator ,useTheme, ThemeProvide
 import useNavigation from '../hooks/use-navigation';
 
 const AuthComponent = ({ initialState, email, children }) => {
-
   const { navigate } = useNavigation();
 
   const handleClickBackToHome = (event, to) => {

@@ -6,8 +6,6 @@ import VideoListPage from '../pages/VideoListPage';
 const AuthenticatedContainer = ({ signOut, user }) => {
   const { currentPath } = useNavigation();
 
-  console.log(`currentPath : ${currentPath}`);
-
   return (
     <div>
       {
