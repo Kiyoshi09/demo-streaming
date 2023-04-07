@@ -33,17 +33,20 @@ export default function ProfileCreateForm(props) {
     name: "",
     isKids: false,
     imagePath: "",
+    isPrimary: false,
   };
   const [email, setEmail] = React.useState(initialValues.email);
   const [name, setName] = React.useState(initialValues.name);
   const [isKids, setIsKids] = React.useState(initialValues.isKids);
   const [imagePath, setImagePath] = React.useState(initialValues.imagePath);
+  const [isPrimary, setIsPrimary] = React.useState(initialValues.isPrimary);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setEmail(initialValues.email);
     setName(initialValues.name);
     setIsKids(initialValues.isKids);
     setImagePath(initialValues.imagePath);
+    setIsPrimary(initialValues.isPrimary);
     setErrors({});
   };
   const validations = {
@@ -51,6 +54,7 @@ export default function ProfileCreateForm(props) {
     name: [{ type: "Required" }],
     isKids: [{ type: "Required" }],
     imagePath: [],
+    isPrimary: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -82,6 +86,7 @@ export default function ProfileCreateForm(props) {
           name,
           isKids,
           imagePath,
+          isPrimary,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -140,6 +145,7 @@ export default function ProfileCreateForm(props) {
               name,
               isKids,
               imagePath,
+              isPrimary,
             };
             const result = onChange(modelFields);
             value = result?.email ?? value;
@@ -167,6 +173,7 @@ export default function ProfileCreateForm(props) {
               name: value,
               isKids,
               imagePath,
+              isPrimary,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
@@ -194,6 +201,7 @@ export default function ProfileCreateForm(props) {
               name,
               isKids: value,
               imagePath,
+              isPrimary,
             };
             const result = onChange(modelFields);
             value = result?.isKids ?? value;
@@ -221,6 +229,7 @@ export default function ProfileCreateForm(props) {
               name,
               isKids,
               imagePath: value,
+              isPrimary,
             };
             const result = onChange(modelFields);
             value = result?.imagePath ?? value;
@@ -235,6 +244,34 @@ export default function ProfileCreateForm(props) {
         hasError={errors.imagePath?.hasError}
         {...getOverrideProps(overrides, "imagePath")}
       ></TextField>
+      <SwitchField
+        label="Is primary"
+        defaultChecked={false}
+        isDisabled={false}
+        isChecked={isPrimary}
+        onChange={(e) => {
+          let value = e.target.checked;
+          if (onChange) {
+            const modelFields = {
+              email,
+              name,
+              isKids,
+              imagePath,
+              isPrimary: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.isPrimary ?? value;
+          }
+          if (errors.isPrimary?.hasError) {
+            runValidationTasks("isPrimary", value);
+          }
+          setIsPrimary(value);
+        }}
+        onBlur={() => runValidationTasks("isPrimary", isPrimary)}
+        errorMessage={errors.isPrimary?.errorMessage}
+        hasError={errors.isPrimary?.hasError}
+        {...getOverrideProps(overrides, "isPrimary")}
+      ></SwitchField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

@@ -16,6 +16,7 @@ type EagerProfile = {
   readonly name: string;
   readonly isKids: boolean;
   readonly imagePath?: string | null;
+  readonly isPrimary?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -30,6 +31,7 @@ type LazyProfile = {
   readonly name: string;
   readonly isKids: boolean;
   readonly imagePath?: string | null;
+  readonly isPrimary?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

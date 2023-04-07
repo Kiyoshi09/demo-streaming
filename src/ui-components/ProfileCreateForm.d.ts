@@ -17,12 +17,14 @@ export declare type ProfileCreateFormInputValues = {
     name?: string;
     isKids?: boolean;
     imagePath?: string;
+    isPrimary?: boolean;
 };
 export declare type ProfileCreateFormValidationValues = {
     email?: ValidationFunction<string>;
     name?: ValidationFunction<string>;
     isKids?: ValidationFunction<boolean>;
     imagePath?: ValidationFunction<string>;
+    isPrimary?: ValidationFunction<boolean>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type ProfileCreateFormOverridesProps = {
@@ -31,6 +33,7 @@ export declare type ProfileCreateFormOverridesProps = {
     name?: PrimitiveOverrideProps<TextFieldProps>;
     isKids?: PrimitiveOverrideProps<SwitchFieldProps>;
     imagePath?: PrimitiveOverrideProps<TextFieldProps>;
+    isPrimary?: PrimitiveOverrideProps<SwitchFieldProps>;
 } & EscapeHatchProps;
 export declare type ProfileCreateFormProps = React.PropsWithChildren<{
     overrides?: ProfileCreateFormOverridesProps | undefined | null;
