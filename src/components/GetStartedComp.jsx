@@ -3,19 +3,20 @@ import styled from 'styled-components';
 import { Button, Flex, TextField, View } from '@aws-amplify/ui-react';
 import useNavigation from '../hooks/use-navigation';
 import EmailValidator from 'email-validator';
-import useUserInfo from '../hooks/use-userinfo';
+import { useDispatch } from 'react-redux';
+import { setEmail } from '../redux/userprofileSlice';
 
 const GetStartedComp = () => {
 
-  const [ email, setEmail ] = useState('');
+  const [ email2, setEmail2 ] = useState('');
   const [ isEmailValid, setIsEmailValid ] = useState(true);
 
   const { navigate } = useNavigation();
-  const { setUserInfo } = useUserInfo();
+  const dispatch = useDispatch();
 
   const handleEmailInput = (e) => {
     setIsEmailValid(true);
-    setEmail(e.target.value)
+    setEmail2(e.target.value)
   }
 
   const handleClickSignUp = (event, to) => {
@@ -23,14 +24,14 @@ const GetStartedComp = () => {
       return;
     }
 
-    if (! EmailValidator.validate(email)) {
+    if (! EmailValidator.validate(email2)) {
       setIsEmailValid(false);
       return;
     }
 
     event.preventDefault();
 
-    setUserInfo(email);
+    dispatch(setEmail(email2));
     navigate({ to });
   }
 
@@ -41,7 +42,7 @@ const GetStartedComp = () => {
   const EmailLabel = () => {
     
     if(isEmailValid === true) {
-      if(email === "") {
+      if(email2 === "") {
         return <StyledTextLabel>Email address</StyledTextLabel>;
       }
       else {
@@ -71,7 +72,6 @@ const GetStartedComp = () => {
               onChange={handleEmailInput} 
               onFocus={handleEmailInputFocus}/>
             {
-              //email ? <StyledTextLabel></StyledTextLabel> : <StyledTextLabel>Email address</StyledTextLabel>
               EmailLabel()
             }
           </StyledInputEmailContainer>

@@ -8,20 +8,24 @@ import { SaveProfileApi } from '../apis/SaveProfileApi';
 import { QueryProfileByEmailApi } from '../apis/QueryProfileByEmailApi';
 
 import useNavigation from '../hooks/use-navigation';
-import useUserInfo from '../hooks/use-userinfo';
 import useToggle from '../hooks/use-toggle';
 import AddProfileComponent from '../components/AddProfileComponent';
 import { DeleteProfileByNameApi } from '../apis/DeleteProfileByNameApi';
 
+import { useDispatch } from 'react-redux';
+import { setEmail, setProfileName, setIsKids } from '../redux/userprofileSlice';
+
+
 const ProfilePage = ({ signOut, user }) => {
 
   const { navigate } = useNavigation();
-  const { setUserInfo } = useUserInfo();
-  const { state: screenState, toggle: toggleScreen } = useToggle();
-
   const [ profiles, setProfiles ] = useState([]);
+  const { state: screenState, toggle: toggleScreen } = useToggle();
   const { state: isManageProfileMode, toggle: toggleIsManageProfieMode } = useToggle(false);
 
+  const dispatch = useDispatch();
+
+  // Lifecycle: Component Mount/Unmount
   useEffect(() => {
     const bodyElm = document.getElementsByTagName('body')[0];
     bodyElm.style.backgroundColor = 'black';
@@ -29,6 +33,7 @@ const ProfilePage = ({ signOut, user }) => {
     return () => { bodyElm.style.backgroundColor = 'white' }
   }, [])
 
+  // Retrieve all profiles under the email
   const profileData = useCallback(async() => {
     const email = user.attributes.email;
     let a = await QueryProfileByEmailApi(email);
@@ -51,6 +56,7 @@ const ProfilePage = ({ signOut, user }) => {
     profileData();
   }, [profileData]);
 
+  // EventHandler : Move to VideoList
   const handleClick = (event, to, name, isKids) => {
     if(event.metaKey || event.ctrlKey) {
       return;
@@ -58,10 +64,14 @@ const ProfilePage = ({ signOut, user }) => {
 
     event.preventDefault();
 
-    setUserInfo(user.attributes.email, name, isKids);
+    dispatch(setEmail(user.attributes.email));
+    dispatch(setProfileName(name));
+    dispatch(setIsKids(isKids));
+
     navigate({ to });
   }
 
+  // EventHandler : Delete a profile
   const handleClickDeleteProfile = async (event, name, isPrimary) => {
     if(isPrimary) {
       return;
@@ -79,6 +89,7 @@ const ProfilePage = ({ signOut, user }) => {
     setProfiles(a);
   }
 
+  // EventHandler : Add a profile
   const handleClickAddProfile = (event, profileName, state) => {
     toggleScreen();
 
@@ -97,10 +108,12 @@ const ProfilePage = ({ signOut, user }) => {
     })();
   }
 
+  // EventHandler : Switch the screen between Who's watching and Manage Profile
   const handleClickSwitchScreen = () => {
     toggleScreen();
   }
 
+  // EventHandler : Switch the screen between Edit and normal mode in Manage Profile
   const handleSwitchManageProfileMode = () => {
     toggleIsManageProfieMode();
   }

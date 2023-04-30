@@ -1,3 +1,4 @@
+import './App.css';
 import { ThemeProvider } from '@aws-amplify/ui-react';
 import { Amplify } from 'aws-amplify';
 
@@ -5,7 +6,6 @@ import Route from "./components/Route";
 import HomePage from "./pages/HomePage";
 import AuthenticatedPage from "./pages/AuthenticatedPage";
 
-import './App.css';
 
 const theme = {
   name: 'custom-theme',
@@ -41,6 +41,27 @@ function App() {
         <Route path="/auth/videolist">
           <AuthenticatedPage />
         </Route>
+
+        <Route path="/auth/videolist/home">
+          <AuthenticatedPage />
+        </Route>
+
+        <Route path="/auth/videolist/movie">
+          <AuthenticatedPage />
+        </Route>
+
+        <Route path="/auth/videolist/tv">
+          <AuthenticatedPage />
+        </Route>
+
+        <Route path="/auth/videolist/new">
+          <AuthenticatedPage />
+        </Route>
+
+        <Route path="/auth/videolist/mylist">
+          <AuthenticatedPage />
+        </Route>
+
     </ThemeProvider>
   );
 }

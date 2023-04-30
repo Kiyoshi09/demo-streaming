@@ -1,13 +1,15 @@
 import React from 'react';
 import AuthComponent from '../components/AuthComponent';
 import AuthenticatedContainer from '../components/AuthenticatedContainer';
-import useUserInfo from '../hooks/use-userinfo';
+import { useSelector } from 'react-redux';
 
 const AuthenticatedPage = () => {
-  const { email } = useUserInfo();
+  const userprofile = useSelector((state) => {
+    return state.userprofile;
+  });
 
   return (
-    <AuthComponent initialState={email ? "signUp" : "signIn"} email={email || ""}>
+    <AuthComponent initialState={userprofile.email ? "signUp" : "signIn"} email={userprofile.email || ""}>
       {
         ({ signOut, user }) => (
             <AuthenticatedContainer signOut={signOut} user={user} />

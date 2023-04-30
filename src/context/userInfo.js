@@ -19,11 +19,16 @@ const UserInfoProvider = ({children}) => {
     if(k) {
       setIsKids(k);
     }
+  }
 
+  const clearUserInfo = () => {
+    setEmail('');
+    setProfileName('');
+    setIsKids(false);
   }
 
   return(
-    <UserInfoContext.Provider value={{ email, profileName, isKids, setUserInfo }}>
+    <UserInfoContext.Provider value={{ email, profileName, isKids, setUserInfo, clearUserInfo }}>
       {children}
     </UserInfoContext.Provider>
   );
