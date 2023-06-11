@@ -16,4 +16,17 @@ export const store = configureStore({
 
 setupListeners(store.dispatch);
 
-export { useGetConfigurationQuery } from './api/streamingApi';
+export { 
+  useGetConfigurationQuery, 
+  useGetMoviePopularQuery, 
+  useGetMovieImageQuery,
+  useGetMovieYoutubeTrailerQuery,
+  useGetMovieDetailsQuery,
+  useGetLatestMovieQuery, 
+  useGetUpcomingMoviesQuery,
+  useGetMovieTopRatedQuery,
+  useGetMovieActionQuery,
+  useGetMovieAnimationQuery,
+  useGetMovieComedyQuery,
+  useGetMovieSFQuery,
+} from './api/streamingApi';

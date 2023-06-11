@@ -38,13 +38,13 @@ const HomePage = () => {
           border="1px solid var(--amplify-colors-black)" />
 
         <HomeMiddle2View 
-          height={{ base: "90vh", small: "70vh", medium: "85vh", xl: "60vh", xxl: "50vh"}}
+          height={{ base: "90vh", small: "70vh", medium: "85vh", xl: "60vh", xxl: "60vh"}}
           width="100%" 
           backgroundColor="var(--amplify-colors-black)"
           border="1px solid var(--amplify-colors-black)" />
 
         <HomeFaqView 
-          height={{ base: "130vh", small: "80vh", medium: "85vh", xl: "80vh", xxl: "80vh"}}
+          height={{ base: "130vh", small: "80vh", medium: "85vh", xl: "130vh", xxl: "120vh"}}
           width="100%" 
           backgroundColor="var(--amplify-colors-black)"
           border="1px solid var(--amplify-colors-black)" />

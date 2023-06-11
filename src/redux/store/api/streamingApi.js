@@ -51,6 +51,145 @@ const streamingApi = createApi({
       }
     }),
 
+    // Get Youtube Video for Movie
+    getMovieYoutubeTrailer: builder.query({
+      query: (movieid) => {
+        return {
+          url: `/movie/${movieid}/videos`,
+          method: 'GET',
+          params: {
+            api_key: API_KEY,
+            include_image_language: 'en',
+          }
+        }
+      }
+    }),
+
+    // Get Details for Movie
+    getMovieDetails: builder.query({
+        query: (movieid) => {
+          return {
+            url: `/movie/${movieid}`,
+            method: 'GET',
+            params: {
+              api_key: API_KEY,
+            }
+          }
+        }
+    }),
+
+    // Get the latest movie
+    getLatestMovie: builder.query({
+      query: () => {
+        return {
+          url: '/movie/latest',
+          method: 'GET',
+          params: {
+            api_key: API_KEY,
+          }
+        }
+      }
+    }),
+
+    // Get the upcoming movies
+    getUpcomingMovies: builder.query({
+      query: () => {
+        return {
+          url: '/movie/upcoming',
+          method: 'GET',
+          params: {
+              api_key: API_KEY,
+          }
+        }
+      }
+    }),
+
+    // Get Top Rated Movie
+    getMovieTopRated: builder.query({
+      query: () => {
+        return {
+          url: '/movie/top_rated',
+          method: 'GET',
+          params: {
+            api_key: API_KEY,
+            page: 1,
+          }
+        }
+      }
+    }),
+
+    // Get Action Movie
+    getMovieAction: builder.query({
+      query: () => {
+        return {
+          url: '/discover/movie',
+          method: 'GET',
+          params: {
+            api_key: API_KEY,
+            language: "en-US",
+            page: 1,
+            "vote_average.gte": 5.5,
+            "release_date.gte": '2021-01-01',
+            with_genres: 27,
+          }
+        }
+      }
+    }),
+
+    // Get Animation Movie
+    getMovieAnimation: builder.query({
+      query: () => {
+        return {
+          url: '/discover/movie',
+          method: 'GET',
+          params: {
+            api_key: API_KEY,
+            language: "en-US",
+            page: 1,
+            "vote_average.gte": 5.5,
+            "release_date.gte": '2021-01-01',
+            with_genres: 16,
+          }
+        }
+      }
+    }),
+
+    // Get Comedy Movie
+    getMovieComedy: builder.query({
+      query: () => {
+        return {
+          url: '/discover/movie',
+          method: 'GET',
+          params: {
+            api_key: API_KEY,
+            language: "en-US",
+            page: 1,
+            "vote_average.gte": 7.0,
+            "release_date.gte": '2021-01-01',
+            with_genres: 35,
+          }
+        }
+      }
+    }),
+
+    // Get SF Movie
+    getMovieSF: builder.query({
+      query: () => {
+        return {
+          url: '/discover/movie',
+          method: 'GET',
+          params: {
+            api_key: API_KEY,
+            language: "en-US",
+            page: 1,
+            "vote_average.gte": 7.0,
+            "release_date.gte": '2021-01-01',
+            with_genres: 878,
+          }
+        }
+      }
+    }),
+
   })
 });
 
@@ -58,6 +197,15 @@ export const {
   useGetConfigurationQuery, 
   useGetMoviePopularQuery, 
   useGetMovieImageQuery,
+  useGetMovieYoutubeTrailerQuery,
+  useGetMovieDetailsQuery,
+  useGetLatestMovieQuery,
+  useGetUpcomingMoviesQuery,
+  useGetMovieTopRatedQuery,
+  useGetMovieActionQuery,
+  useGetMovieAnimationQuery,
+  useGetMovieComedyQuery,
+  useGetMovieSFQuery,
 } = streamingApi;
 
 export { streamingApi };

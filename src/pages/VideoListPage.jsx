@@ -10,6 +10,7 @@ import VideoListTvComponent from "../components/VideoListTvComponent";
 import VideoListPopularComponent from "../components/VideoListPopularComponent";
 import VideoListMyListComponent from "../components/VideoListMyListComponent";
 import { useGetConfigurationQuery } from "../redux/store/store";
+import HomeFooterView from "../components/HomeFooterView";
 
 const VideoListPage = ({ signOut, user }) => {
   const [ isSearch, setIsSearch ] = useState(false);
@@ -91,6 +92,11 @@ const VideoListPage = ({ signOut, user }) => {
       {
         currentPath === '/auth/videolist/mylist' && <VideoListMyListComponent apiConfig={data}/>
       }
+      <HomeFooterView 
+          height={{ base: "90vh", small: "70vh", medium: "60vh", xl: "50vh", xxl: "50vh"}}
+          width="100%" 
+          backgroundColor="var(--amplify-colors-black)"
+          border="1px solid var(--amplify-colors-black)" />
     </>
   )
 };

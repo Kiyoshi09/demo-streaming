@@ -4,8 +4,10 @@ import { schema } from './schema';
 
 
 
-const { Profile } = initSchema(schema);
+const { LikeList, WishList, Profile } = initSchema(schema);
 
 export {
+  LikeList,
+  WishList,
   Profile
 };

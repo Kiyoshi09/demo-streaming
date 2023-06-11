@@ -27,14 +27,14 @@ export const StyledButtonWrapper = styled.div`
     position: absolute;
     border-radius: ${isForward ? "0.5vw 0 0 0.5vw" : "0 0.5vw 0.5vw 0"};
     box-sizing: border-box;
-    top: 50px;
-    width: 55px;
+    top: 45px;
+    width: 40px;
     height: 100px;
     ${isForward ? "right: 0;" : "left: 0;"};
 
     @media screen and (min-width: 1376px) {
-      top: 30%;
-      width: 55px;
+      top: 20%;
+      width: 50px;
       height: 45%;
     }
 

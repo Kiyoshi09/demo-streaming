@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Loader, Text, View } from '@aws-amplify/ui-react';
-import MovieImageCard from './MovieImageCard';
+import VideoImageCard from './VideoImageCard';
 import { Slider } from './Slider/Slider';
 
 const SliderProps = {
@@ -11,7 +11,7 @@ const SliderProps = {
   pageTransition: 500 /* 次のページへの推移速度 */,
 };
 
-const Row = ({apiConfig, title, getData}) => {
+const Row = ({apiConfig, title, getData, imageQuery, trailerQuery, getDetailData}) => {
   const { data, error, isFetching } = getData();
   const imgBaseUrl = apiConfig.images.secure_base_url;
 
@@ -22,21 +22,26 @@ const Row = ({apiConfig, title, getData}) => {
         isFetching && <Loader size='large' variation='linear' />
       }
       {
-        error && <StyledTextErrorMsg as='p'>Error Loading Popular Movies</StyledTextErrorMsg>
+        error && <StyledTextErrorMsg as='p'>Error Loading Contents</StyledTextErrorMsg>
       }
       {
         !isFetching && !error && 
           <Slider {...SliderProps}>
             {
-              data.results.map((movie) => (
-                <View key={movie.id}>
-                  <MovieImageCard 
+              data.results.map((video) => (
+                <View key={video.id}>
+                  <VideoImageCard 
+                    imageQuery={imageQuery}
+                    trailerQuery={trailerQuery}
                     imageBaseUrl={imgBaseUrl} 
-                    movieId={movie.id} 
-                    title={movie.title}
-                    vote_average={movie.vote_average}
-                    vote_count={movie.vote_count}
-                    release_date={movie.release_date}
+                    getDetailData={getDetailData}
+                    videoId={video.id} 
+                    title={video.title}
+                    vote_average={video.vote_average}
+                    vote_count={video.vote_count}
+                    release_date={video.release_date}
+                    popularity={video.popularity}
+                    overview={video.overview}
                   />
                 </View> 
               ))

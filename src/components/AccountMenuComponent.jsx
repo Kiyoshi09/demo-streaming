@@ -6,7 +6,7 @@ import '@szhsin/react-menu/dist/transitions/slide.css';
 import { QueryProfileByEmailApi } from '../apis/QueryProfileByEmailApi';
 import { Image } from "@aws-amplify/ui-react";
 import { useSelector, useDispatch } from 'react-redux';
-import { setEmail, setProfileName, setIsKids } from '../redux/userprofileSlice';
+import { setEmail, setProfileId, setProfileName, setIsKids } from '../redux/userprofileSlice';
 
 export const AccountMenuComponent = ({ onSignout, children }) => {
 
@@ -26,6 +26,7 @@ export const AccountMenuComponent = ({ onSignout, children }) => {
   }, [profileData]);
 
   const handleChangeProfile = (event, profile) => {
+    dispatch(setProfileId(profile.id));
     dispatch(setEmail(profile.email));
     dispatch(setProfileName(profile.name));
     dispatch(setIsKids(profile.isKids));

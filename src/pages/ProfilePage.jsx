@@ -13,7 +13,7 @@ import AddProfileComponent from '../components/AddProfileComponent';
 import { DeleteProfileByNameApi } from '../apis/DeleteProfileByNameApi';
 
 import { useDispatch } from 'react-redux';
-import { setEmail, setProfileName, setIsKids } from '../redux/userprofileSlice';
+import { setEmail, setProfileId, setProfileName, setIsKids } from '../redux/userprofileSlice';
 
 
 const ProfilePage = ({ signOut, user }) => {
@@ -57,13 +57,14 @@ const ProfilePage = ({ signOut, user }) => {
   }, [profileData]);
 
   // EventHandler : Move to VideoList
-  const handleClick = (event, to, name, isKids) => {
+  const handleClick = (event, to, id, name, isKids) => {
     if(event.metaKey || event.ctrlKey) {
       return;
     }
 
     event.preventDefault();
 
+    dispatch(setProfileId(id));
     dispatch(setEmail(user.attributes.email));
     dispatch(setProfileName(name));
     dispatch(setIsKids(isKids));
@@ -140,7 +141,7 @@ const ProfilePage = ({ signOut, user }) => {
                         <StyledViewProfile 
                           key={profile.id} 
                           onClick={(event) => { 
-                                                  if(isManageProfileMode === false){ return handleClick(event, '/auth/videolist', profile.name, profile.isKids) }
+                                                  if(isManageProfileMode === false){ return handleClick(event, '/auth/videolist', profile.id, profile.name, profile.isKids) }
                                                   else{ return handleClickDeleteProfile(event, profile.name, profile.isPrimary); }
                                                 }}>
                           {
@@ -191,6 +192,9 @@ const StyledViewContainer = styled(View)`
 
   @media screen and (max-width: 992px) {
     padding-block-start: 100px;
+  }
+  @media screen and (max-width: 1280px) {
+    padding-block-start: 200px;
   }
 `;
 

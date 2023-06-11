@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import { Button, Flex, Image, Text, View } from '@aws-amplify/ui-react';
 import GetStartedComp from './GetStartedComp';
 import useNavigation from '../hooks/use-navigation';
-
+import { Auth } from 'aws-amplify';
 
 const HomeTopView = (props) => {
   const { navigate } = useNavigation();
+
+  const isLoggedIn = useCallback(async () => {
+    const currentAuthUser = await Auth.currentAuthenticatedUser();
+    const session = await Auth.userSession(currentAuthUser);
+
+    if(session?.isValid()) {
+      navigate({ to: '/auth', email: currentAuthUser.email });
+    }
+  }, []);
+
+  useEffect(() => {
+    isLoggedIn();
+  }, [isLoggedIn])
 
   const handleClickSignIn = (event, to) => {
     if(event.metaKey || event.ctrlKey) {
@@ -70,12 +83,10 @@ const HomeTopView = (props) => {
       </StyledViewHeader>
 
       <StyledViewBody
-        position="absolute"
-        top="5.375rem"
-        left="0"
         height="80%"
         width="100%"
-        paddingBlock={{ base: "20% 10%", meidum: "20% 10%" , large: "12% 10%", xl: "8% 8%" }}>
+        // paddingBlock={{ base: "20% 10%", meidum: "20% 10%" , large: "12% 10%", xl: "8% 8%" }}
+        >
 
           <Flex
             direction="column"
@@ -129,7 +140,7 @@ const StyledTextHeading1 = styled(Text)`
   color: var(--amplify-colors-white);
   text-align: center;
 
-  @media screen and (max-width: 992px) {
+  @media screen and (max-width: 1280px) {
     font-size: 38px;
   }
   @media screen and (max-width: 768px) {
@@ -168,4 +179,25 @@ const StyledTextHeading5 = styled(Text)`
 `;
 
 const StyledViewBody = styled(View)`
+  position: absolute;
+  top: 200px;
+  left: 0;
+
+  @media screen and (max-width: 1280px) {
+    position: absolute;
+    top: 150px;
+    left: 0;
+  }
+
+  @media screen and (max-width: 768px) {
+    position: absolute;
+    top: 200px;
+    left: 0;
+  }
+
+  @media screen and (max-width: 480px) {
+    position: absolute;
+    top: 150px;
+    left: 0;
+  }
 `;

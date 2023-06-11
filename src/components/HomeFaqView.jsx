@@ -75,7 +75,7 @@ const StyledTextHeading = styled(Text)`
   text-align: center;
   padding-block-start: 50px;
 
-  @media screen and (max-width: 991px) {
+  @media screen and (max-width: 1280px) {
     font-size: 36px;
     padding-block-start: 40px;
   }
@@ -101,25 +101,24 @@ const StyledViewFaq = styled(View)`
   @media screen and (max-width: 479px){
     width: 97%;
   }
-
 `;
 
 const StyledExpanderItem = styled(ExpanderItem)`
   color: var(--amplify-colors-white);
-  font-size: 1.7rem;
+  font-size: 24px;
   font-weight: 500;
   font-family: 'Ubuntu';
   background-color: rgba(45, 45, 45, 1.0);
   border: 4px solid var(--amplify-colors-black);
-  padding-block: 20px 20px;
+  padding-block: 10px 10px;
 
   @media screen and (max-width: 991px) {
-    font-size: 1.3rem;
+    font-size: 18px;
     padding-block: 10px 10px;
   }
 
   @media screen and (max-width: 479px) {
-    font-size: 1.0rem;
+    font-size: 14px;
     padding-block: 7px 7px;
   }
 `;
