@@ -74,6 +74,9 @@ const VideoListPage = ({ signOut, user }) => {
         onClickMenu={handleMenuClick} 
         refSearchIcon={refSearchIcon} 
         onSignout={handleSignOut}/> 
+
+      <div style={{ width: "100vh", height: "50px" }}></div>
+
       {
         currentPath === '/auth/videolist' && <VideoListHomeComponent apiConfig={data}/>
       }

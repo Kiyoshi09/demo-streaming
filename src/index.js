@@ -9,16 +9,19 @@ import awsExports from "./aws-exports";
 import { Provider } from 'react-redux';
 import { NavigationProvider } from './context/navigation';
 import { store } from './redux/store/store';
-
 Amplify.configure(awsExports);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+
 root.render(
-  <Provider store={store}>
-    <NavigationProvider>
-      <App />
-    </NavigationProvider>
-  </Provider>
+  <div>
+    <Provider store={store}>
+      <NavigationProvider>
+        <App />
+      </NavigationProvider>
+    </Provider>
+  </div>
 );
 
 // If you want to start measuring performance in your app, pass a function

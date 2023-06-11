@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Flex, View, Image, Link, Text, Menu, MenuItem } from "@aws-amplify/ui-react";
 import { FiSearch } from "react-icons/fi";
@@ -8,9 +8,28 @@ import SearchBoxComponent2 from "./SearchBoxComponent2";
 import { AccountMenuComponent } from "./AccountMenuComponent";
 
 const VideoListHeaderComponent = ({ isSearch, onClickMenu, refSearchIcon, onSignout }) => {
+  const [ isHeaderFixed, setIsHeaderFixed ] = useState(false);
+
   const userprofile = useSelector((state) => {
     return state.userprofile;
   });
+
+const handleScroll = () => {
+    //console.log(window.scrollY);
+    if(window.scrollY >= 20) {
+      setIsHeaderFixed(true);
+    }
+    else {
+      setIsHeaderFixed(false);
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [])
+
 
   return (
     <>
@@ -19,10 +38,17 @@ const VideoListHeaderComponent = ({ isSearch, onClickMenu, refSearchIcon, onSign
         justifyContent='space-between'
         alignItems='center'
         height='68px'
-        marginTop='10px'
+        // marginTop='10px'
         marginRight={{base: "5px"}} 
-        // style={{border: 'solid 1px #fff'}}
-        >
+        style={ isHeaderFixed ? 
+                  { position: "fixed", 
+                    top: 0, 
+                    left: 0, 
+                    width: "100%", 
+                    zIndex: 999, 
+                    backgroundColor: "rgba(0, 0, 0, 0.7)" 
+                  } : {}}
+      >
           <StyledHeaderItem1>
             <Image alt="tealium Logo" src="https://kiyotaro.cloud/images/2021_Tealium_logo.png" width='70%'/>
           </StyledHeaderItem1>
@@ -68,13 +94,22 @@ const VideoListHeaderComponent = ({ isSearch, onClickMenu, refSearchIcon, onSign
               </StyledViewAccountImageContainer>
             </StyledFlexHeaderRight>
           </StyledHeaderItem5>
-
       </Flex>
     </>
   );
 }
 
 export default VideoListHeaderComponent;
+
+const StyledViewFlexContainer = styled(Flex)`
+  /* display: relative;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 1); */
+`;
 
 const StyledHeaderItem1 = styled(View)`
   color: var(--amplify-colors-white);

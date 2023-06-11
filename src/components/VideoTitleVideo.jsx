@@ -1,6 +1,7 @@
-import { View, Loader, Flex, Image, Text, Button } from '@aws-amplify/ui-react';
-import styled from 'styled-components';
+
 import React from 'react';
+import styled from 'styled-components';
+import { View, Loader, Flex, Image, Text, Button } from '@aws-amplify/ui-react';
 import { ImPlay2, ImStop } from 'react-icons/im';
 import Carousel from "nuka-carousel";
 import { GoTriangleRight, GoTriangleLeft } from "react-icons/go";
@@ -20,7 +21,8 @@ const VideoTitleVideo = ({apiConfig, getUpcomingMovies, trailerQuery}) => {
   let titleVideo;
 
   if (isFetching) {
-    titleVideo = <Loader size='large' variation='linear' />;
+    //titleVideo = <Loader size='large' variation='linear' />;
+    titleVideo = <StyledLoaderContainer><Loader size='large' variation='linear' /></StyledLoaderContainer>;
   }
   else if (error) {
     titleVideo = <StyledTextErrorMsg as='p'>Error Loading Contents</StyledTextErrorMsg>;
@@ -62,7 +64,7 @@ const VideoTitleVideo = ({apiConfig, getUpcomingMovies, trailerQuery}) => {
         results.map((video) => {
           const videoId = video.id;
           const title = video.title;
-          const overview = video.overview;
+          const overview = video.overview.length > 500 ? video.overview.slice(0, 500) + "..." : video.overview;
           const imagePosterPath = imgBaseUrl + 'original' + video.backdrop_path;
 
           console.log(video);
@@ -108,6 +110,13 @@ const VideoTitleVideo = ({apiConfig, getUpcomingMovies, trailerQuery}) => {
 
 export default VideoTitleVideo;
 
+const StyledLoaderContainer = styled(View)`
+  width: 100%;
+  height: 300px;
+  padding-inline: 200px 200px;
+  padding-block: 150px 150px;
+`;
+
 const StyledViewVideoTitleMain = styled(View)`
   @media screen and (max-width: 1279px){
     display: none;
@@ -145,13 +154,13 @@ const StyledFlex2Container = styled(Flex)`
 
 const StyledViewDummyBlock = styled(View)`
   display: block;
-  height: 170px;
+  height: 100px;
   width: 100%;
   /* background-color: red; */
 
-  @media screen and (max-width: 1280px){
+  /* @media screen and (max-width: 1280px){
     height: 130px;
-  }
+  } */
 `;
 
 const StyledTextVideoTitle = styled(Text)`
@@ -164,6 +173,7 @@ const StyledTextVideoTitle = styled(Text)`
 const StyledViewOverview = styled(View)`
   color: white;
   font-family: 'Ubuntu';
+  text-overflow: ellipsis;
 `;
 
 const StyledFlexButtonContainer = styled(Flex)`
