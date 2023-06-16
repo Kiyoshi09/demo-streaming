@@ -11,7 +11,7 @@ const SliderProps = {
   pageTransition: 500 /* 次のページへの推移速度 */,
 };
 
-const Row = ({apiConfig, title, getData, imageQuery, trailerQuery, getDetailData}) => {
+const Row = ({apiConfig, title, getData, imageQuery, trailerQuery, getDetailData, type}) => {
   const { data, error, isFetching } = getData();
   const imgBaseUrl = apiConfig.images.secure_base_url;
 
@@ -36,12 +36,13 @@ const Row = ({apiConfig, title, getData, imageQuery, trailerQuery, getDetailData
                     imageBaseUrl={imgBaseUrl} 
                     getDetailData={getDetailData}
                     videoId={video.id} 
-                    title={video.title}
+                    title={video.title || video.name}
                     vote_average={video.vote_average}
                     vote_count={video.vote_count}
-                    release_date={video.release_date}
+                    release_date={video.release_date || video.first_air_date}
                     popularity={video.popularity}
                     overview={video.overview}
+                    type={type}
                   />
                 </View> 
               ))

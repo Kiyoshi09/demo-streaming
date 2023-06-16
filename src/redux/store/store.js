@@ -29,4 +29,9 @@ export {
   useGetMovieAnimationQuery,
   useGetMovieComedyQuery,
   useGetMovieSFQuery,
+  useGetTvOnTheAirQuery,
+  useGetTVImageQuery,
+  useGetTVYoutubeTrailerQuery,
+  useGetTVDetailsQuery,
+  useGetTvTopRatedQuery,
 } from './api/streamingApi';

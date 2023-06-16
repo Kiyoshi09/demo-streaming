@@ -15,7 +15,7 @@ const opts = {
   }
 }
 
-const Modal = ({ onClose, trailerQuery, videoId, title, vote_average, vote_count, release_date, popularity, overview, genres }) => {
+const Modal = ({ onClose, trailerQuery, videoId, title, vote_average, vote_count, release_date, popularity, overview, genres, type }) => {
   const { data, error, isFetching } = trailerQuery(videoId);
   let releaseYear = release_date.split('-')[0];
 
@@ -79,10 +79,14 @@ const Modal = ({ onClose, trailerQuery, videoId, title, vote_average, vote_count
                           ))
                         }
                       </Flex>
-                      <View>{overview}</View>
+                      <View>
+                        {
+                          overview.length >= 300 ? overview.slice(0, 300) + '...' : overview
+                        }
+                      </View>
                       <StyledFlexButtonCotainer direction='row'>
-                        <Add2ListButton videoId={videoId} contentsType='movie' />
-                        <LikeButton videoId={videoId} contentsType='movie' />
+                        <Add2ListButton videoId={videoId} contentsType={type} />
+                        <LikeButton videoId={videoId} contentsType={type} />
                       </StyledFlexButtonCotainer>
                     </StyledFlexVideoContainer>
                   </StyledViewR2>

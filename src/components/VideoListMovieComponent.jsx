@@ -33,7 +33,8 @@ const VideoListMovieComponent = ({apiConfig}) => {
           getData={useGetMoviePopularQuery} 
           imageQuery={useGetMovieImageQuery} 
           trailerQuery={useGetMovieYoutubeTrailerQuery}
-          getDetailData={useGetMovieDetailsQuery} />
+          getDetailData={useGetMovieDetailsQuery} 
+          type="movie"/>
       </View>
       <View>
         <Row 
@@ -42,7 +43,8 @@ const VideoListMovieComponent = ({apiConfig}) => {
           getData={useGetMovieTopRatedQuery} 
           imageQuery={useGetMovieImageQuery} 
           trailerQuery={useGetMovieYoutubeTrailerQuery}
-          getDetailData={useGetMovieDetailsQuery} />
+          getDetailData={useGetMovieDetailsQuery} 
+          type="movie"/>
       </View>
       <View>
         <Row 
@@ -51,7 +53,8 @@ const VideoListMovieComponent = ({apiConfig}) => {
           getData={useGetMovieActionQuery} 
           imageQuery={useGetMovieImageQuery} 
           trailerQuery={useGetMovieYoutubeTrailerQuery}
-          getDetailData={useGetMovieDetailsQuery} />
+          getDetailData={useGetMovieDetailsQuery} 
+          type="movie"/>
       </View>
       <View>
         <Row 
@@ -60,7 +63,8 @@ const VideoListMovieComponent = ({apiConfig}) => {
           getData={useGetMovieAnimationQuery} 
           imageQuery={useGetMovieImageQuery} 
           trailerQuery={useGetMovieYoutubeTrailerQuery}
-          getDetailData={useGetMovieDetailsQuery} />
+          getDetailData={useGetMovieDetailsQuery} 
+          type="movie"/>
       </View>
       <View>
         <Row 
@@ -69,7 +73,8 @@ const VideoListMovieComponent = ({apiConfig}) => {
           getData={useGetMovieSFQuery} 
           imageQuery={useGetMovieImageQuery} 
           trailerQuery={useGetMovieYoutubeTrailerQuery}
-          getDetailData={useGetMovieDetailsQuery} />
+          getDetailData={useGetMovieDetailsQuery} 
+          type="movie" />
       </View>
       <View>
         <Row 
@@ -78,7 +83,8 @@ const VideoListMovieComponent = ({apiConfig}) => {
           getData={useGetMovieComedyQuery} 
           imageQuery={useGetMovieImageQuery} 
           trailerQuery={useGetMovieYoutubeTrailerQuery}
-          getDetailData={useGetMovieDetailsQuery} />
+          getDetailData={useGetMovieDetailsQuery} 
+          type="movie" />
       </View>
     </>
   );

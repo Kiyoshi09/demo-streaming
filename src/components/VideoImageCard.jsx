@@ -13,7 +13,8 @@ const VideoImageCard = ({imageQuery,
                           vote_count, 
                           release_date, 
                           popularity, 
-                          overview}) => {
+                          overview, 
+                          type}) => {
 
   const { data: imageData, error: imageDataError, isFetching: isImageDataFetching } = imageQuery(videoId);
   const { data: detailData, error: detailDataError, isFetching: isDetailDataFetching } = getDetailData(videoId);
@@ -35,8 +36,18 @@ const VideoImageCard = ({imageQuery,
     videoCardContent = <Text as='p'>Error Loading...</Text>
   }
   else {
-    if(imageData.backdrops[0]) {
-      const backdrop_path = imageBaseUrl + 'original' + imageData.backdrops[0].file_path;
+    let backdrop_path = "";
+    for(let i=0; i<imageData.backdrops.length; i++) {
+      const backdrop = imageData.backdrops[i];
+
+      if(backdrop["iso_639_1"]) {
+        backdrop_path = backdrop["file_path"];
+        break;
+      }
+    }
+
+    if(backdrop_path) {
+      backdrop_path = imageBaseUrl + 'original' + backdrop_path;
       videoCardContent = <StyledImageCardContent alt='video' src={backdrop_path} onClick={handleClick}/>
     }
     else {
@@ -65,6 +76,7 @@ const VideoImageCard = ({imageQuery,
                   popularity={popularity}
                   overview={overview}
                   genres={genres}
+                  type={type}
                 />
 
   return (

@@ -190,6 +190,73 @@ const streamingApi = createApi({
       }
     }),
 
+    // Get TV on the Air
+    getTvOnTheAir: builder.query({
+      query: () => {
+        return {
+          url: '/tv/on_the_air',
+          method: 'GET',
+          params: {
+            api_key: API_KEY,
+          }
+        }
+      }
+    }),
+
+    // Get TV on the Air
+    getTvTopRated: builder.query({
+      query: () => {
+        return {
+          url: '/tv/top_rated',
+          method: 'GET',
+          params: {
+            api_key: API_KEY,
+            language: "en-US",
+          }
+        }
+      }
+    }),
+
+    // Get TV Image
+    getTVImage: builder.query({
+      query: (tvid) => {
+        return {
+          url: `/tv/${tvid}/images`,
+          method: 'GET',
+          params: {
+            api_key: API_KEY,
+          }
+        }
+      }
+    }),
+
+    // Get Youtube Video for TV
+    getTVYoutubeTrailer: builder.query({
+      query: (tvid) => {
+        return {
+          url: `/tv/${tvid}/videos`,
+          method: 'GET',
+          params: {
+            api_key: API_KEY,
+            include_image_language: 'en',
+          }
+        }
+      }
+    }),
+
+    // Get Details for TV
+    getTVDetails: builder.query({
+      query: (tvid) => {
+        return {
+          url: `/tv/${tvid}`,
+          method: 'GET',
+          params: {
+            api_key: API_KEY,
+          }
+        }
+      }
+  }),
+
   })
 });
 
@@ -206,6 +273,11 @@ export const {
   useGetMovieAnimationQuery,
   useGetMovieComedyQuery,
   useGetMovieSFQuery,
+  useGetTvOnTheAirQuery,
+  useGetTVImageQuery,
+  useGetTVYoutubeTrailerQuery,
+  useGetTVDetailsQuery,
+  useGetTvTopRatedQuery,
 } = streamingApi;
 
 export { streamingApi };
