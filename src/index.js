@@ -9,8 +9,8 @@ import awsExports from "./aws-exports";
 import { Provider } from 'react-redux';
 import { NavigationProvider } from './context/navigation';
 import { store } from './redux/store/store';
-Amplify.configure(awsExports);
 
+Amplify.configure(awsExports);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 

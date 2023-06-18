@@ -190,6 +190,70 @@ const streamingApi = createApi({
       }
     }),
 
+    // Get the most Popular movie since 2023-01-01
+    getMovieMostPopularSince2023: builder.query({
+      query: () => {
+        return {
+          url: '/discover/movie',
+          method: 'GET',
+          params: {
+            api_key: API_KEY,
+            page: 1,
+            sort_by: 'vote_count.desc',
+            language: 'en-US',
+            "primary_release_date.gte": '2023-01-01',
+            "vote_count.gte": 3000,
+          }
+        }
+      }
+    }), 
+
+    // Get the movies released in 2023 
+    getMoviesReleased2023: builder.query({
+      query: () => {
+        return {
+          url: '/discover/movie',
+          method: 'GET',
+          params: {
+            api_key: API_KEY,
+            page: 1,
+            sort_by: 'vote_count.desc',
+            language: 'en-US',
+            "primary_release_date.gte": '2023-01-01',
+            "vote_average.gte": 7.5,
+          }
+        }
+      }
+    }), 
+
+    // Get the movies now playing
+    getMoviesNowPlaying: builder.query({
+      query: () => {
+        return {
+          url: '/movie/now_playing',
+          method: 'GET',
+          params: {
+            api_key: API_KEY,
+          }
+        }
+      }
+    }), 
+
+    // Get the latest TV
+    getTvLatest: builder.query({
+      query: () => {
+        return {
+          url: '/discover/tv',
+          method: 'GET',
+          params: {
+            api_key: API_KEY,
+            sort_by: "vote_count.desc",
+            "first_air_date.gte": "2023-01-01",
+          }
+        }
+      }
+    }),
+
     // Get TV on the Air
     getTvOnTheAir: builder.query({
       query: () => {
@@ -203,7 +267,20 @@ const streamingApi = createApi({
       }
     }),
 
-    // Get TV on the Air
+    // Get Popular TV
+    getTvPopular: builder.query({
+      query: () => {
+        return {
+          url: '/tv/popular',
+          method: 'GET',
+          params: {
+            api_key: API_KEY,
+          }
+        }
+      }
+    }),
+
+    // Get Top Rated TV
     getTvTopRated: builder.query({
       query: () => {
         return {
@@ -257,6 +334,59 @@ const streamingApi = createApi({
       }
   }),
 
+  // Get TV released in 2023 
+  getTvReleased2023: builder.query({
+    query: () => {
+      return {
+        url: '/discover/tv',
+        method: 'GET',
+        params: {
+          api_key: API_KEY,
+          page: 1,
+          language: "en-US",
+          sort_by: "vote_count.desc",
+          "first_air_date.gte": "2023-01-01",
+          "vote_average.gte": 5.5,
+        }
+      }
+    }
+  }),
+
+  // Get Action & Adventure TV
+  getTvActionAdventure: builder.query({
+    query: () => {
+      return {
+        url: '/discover/tv',
+        method: 'GET',
+        params: {
+          api_key: API_KEY,
+          language: "en-US",
+          page: 1,
+          sort_by: "vote_average.desc",
+          with_genres: 10759,
+        }
+      }
+    }
+  }),
+
+  // Get Action & Adventure TV
+  getTvDrama: builder.query({
+    query: () => {
+      return {
+        url: '/discover/tv',
+        method: 'GET',
+        params: {
+          api_key: API_KEY,
+          language: "en-US",
+          page: 1,
+          sort_by: "vote_average.desc",
+          with_genres: 18,
+        }
+      }
+    }
+  }),
+
+
   })
 });
 
@@ -273,11 +403,19 @@ export const {
   useGetMovieAnimationQuery,
   useGetMovieComedyQuery,
   useGetMovieSFQuery,
+  useGetMovieMostPopularSince2023Query,
+  useGetMoviesReleased2023Query,
+  useGetMoviesNowPlayingQuery,
+  useGetTvLatestQuery,
   useGetTvOnTheAirQuery,
+  useGetTvPopularQuery,
   useGetTVImageQuery,
   useGetTVYoutubeTrailerQuery,
   useGetTVDetailsQuery,
   useGetTvTopRatedQuery,
+  useGetTvReleased2023Query,
+  useGetTvActionAdventureQuery,
+  useGetTvDramaQuery,
 } = streamingApi;
 
 export { streamingApi };

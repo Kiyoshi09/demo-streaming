@@ -29,7 +29,7 @@ const VideoTitleVideo = ({apiConfig, getUpcomingMovies, trailerQuery}) => {
   }
   else {
     const imgBaseUrl = apiConfig.images.secure_base_url;
-
+    
     let i = 0;
     const results = data.results.filter((res) => {
       if(res.overview.length >= 400 && i < 5) {
@@ -63,11 +63,9 @@ const VideoTitleVideo = ({apiConfig, getUpcomingMovies, trailerQuery}) => {
       {
         results.map((video) => {
           const videoId = video.id;
-          const title = video.title;
+          const title = video.title || video.name;
           const overview = video.overview.length > 500 ? video.overview.slice(0, 500) + "..." : video.overview;
           const imagePosterPath = imgBaseUrl + 'original' + video.backdrop_path;
-
-          console.log(video);
 
           return (
             <StyledViewContainer key={videoId}>

@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from 'react-redux';
+import styled from 'styled-components';
+import { Loader, Text, View } from '@aws-amplify/ui-react';
 
 import useNavigation from "../hooks/use-navigation";
 import { clearUserprofile } from '../redux/userprofileSlice';
@@ -67,41 +69,70 @@ const VideoListPage = ({ signOut, user }) => {
     navigate({to});
   }
 
+  let contents;
+
+  if(isFetching) {
+    contents = <StyledViewLoaderContainer><Loader size='large' variation='linear' /></StyledViewLoaderContainer>;
+  }
+  else if(error) {
+    contents = <StyledTextErrorMsg as='p'>Error Loading Contents</StyledTextErrorMsg>;
+  }
+  else {
+    contents = <>
+      <VideoListHeaderComponent 
+          isSearch={isSearch} 
+          onClickMenu={handleMenuClick} 
+          refSearchIcon={refSearchIcon} 
+          onSignout={handleSignOut}/> 
+
+        <div style={{ width: "100vh", height: "20px" }}></div>
+
+        {
+          currentPath === '/auth/videolist' && <VideoListHomeComponent apiConfig={data}/>
+        }
+        {
+          currentPath === '/auth/videolist/home' && <VideoListHomeComponent apiConfig={data}/>
+        }
+        {
+          currentPath === '/auth/videolist/movie' && <VideoListMovieComponent apiConfig={data}/>
+        }
+        {
+          currentPath === '/auth/videolist/tv' && <VideoListTvComponent apiConfig={data}/>
+        }
+        {
+          currentPath === '/auth/videolist/new' && <VideoListPopularComponent apiConfig={data}/>
+        }
+        {
+          currentPath === '/auth/videolist/mylist' && <VideoListMyListComponent apiConfig={data}/>
+        }
+        <HomeFooterView 
+            height={{ base: "90vh", small: "70vh", medium: "60vh", xl: "50vh", xxl: "50vh"}}
+            width="100%" 
+            backgroundColor="var(--amplify-colors-black)"
+            border="1px solid var(--amplify-colors-black)" />
+    </>;
+
+  }
+
   return (
     <>
-      <VideoListHeaderComponent 
-        isSearch={isSearch} 
-        onClickMenu={handleMenuClick} 
-        refSearchIcon={refSearchIcon} 
-        onSignout={handleSignOut}/> 
-
-      <div style={{ width: "100vh", height: "50px" }}></div>
-
-      {
-        currentPath === '/auth/videolist' && <VideoListHomeComponent apiConfig={data}/>
-      }
-      {
-        currentPath === '/auth/videolist/home' && <VideoListHomeComponent apiConfig={data}/>
-      }
-      {
-        currentPath === '/auth/videolist/movie' && <VideoListMovieComponent apiConfig={data}/>
-      }
-      {
-        currentPath === '/auth/videolist/tv' && <VideoListTvComponent apiConfig={data}/>
-      }
-      {
-        currentPath === '/auth/videolist/new' && <VideoListPopularComponent apiConfig={data}/>
-      }
-      {
-        currentPath === '/auth/videolist/mylist' && <VideoListMyListComponent apiConfig={data}/>
-      }
-      <HomeFooterView 
-          height={{ base: "90vh", small: "70vh", medium: "60vh", xl: "50vh", xxl: "50vh"}}
-          width="100%" 
-          backgroundColor="var(--amplify-colors-black)"
-          border="1px solid var(--amplify-colors-black)" />
+      {contents}
     </>
-  )
+  );
 };
 
 export default VideoListPage;
+
+const StyledViewLoaderContainer = styled(View)`
+  width: 100%;
+  height: 100vh;
+  padding: 300px 50px 100px 50px;
+`;
+
+const StyledTextErrorMsg = styled(Text)`
+  font-size: 28px;
+  font-family: 'Ubuntu';
+  font-weight: 500;
+  color: var(--amplify-colors-white);
+  text-align: center;
+`;
