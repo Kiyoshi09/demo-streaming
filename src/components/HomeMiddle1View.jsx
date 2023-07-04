@@ -103,8 +103,10 @@ const StyledViewImage = styled(View)`
 
 const StyledViewVideoContainer = styled(View)`
   position: absolute;
-  top: 100px;
-  left: 83px;
+  /* top: 100px;
+  left: 83px; */
+  top: 90px;
+  left: 78px;
 
   > video {
     @media screen and (max-width: 1279px){

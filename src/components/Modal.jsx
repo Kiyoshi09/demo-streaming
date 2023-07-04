@@ -113,6 +113,7 @@ const StyledViewBackground = styled(View)`
   position: fixed;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.9);
+  z-index: 11;
 `;
 
 const StyledViewModal = styled(View)`
@@ -123,6 +124,7 @@ const StyledViewModal = styled(View)`
   margin: auto;
   color: white;
   background-color: #171717e3;
+  z-index: 12;
 
   @media screen and (min-width: 1280px){
     width: 1200px;

@@ -38,6 +38,8 @@ const ProfilePage = ({ signOut, user }) => {
     const email = user.attributes.email;
     let a = await QueryProfileByEmailApi(email);
 
+    console.log(`Profile Data ... ${email}, ${Object.keys(a).length}`);
+
     if (Object.keys(a).length === 0) {
       await SaveProfileApi({
         email,
