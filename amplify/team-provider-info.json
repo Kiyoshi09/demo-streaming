@@ -1,0 +1,20 @@
+{
+  "main": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-tealiumlabsstreaming-main-121353-authRole",
+      "UnauthRoleArn": "arn:aws:iam::864394539128:role/amplify-tealiumlabsstreaming-main-121353-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::864394539128:role/amplify-tealiumlabsstreaming-main-121353-authRole",
+      "Region": "ap-northeast-1",
+      "DeploymentBucketName": "amplify-tealiumlabsstreaming-main-121353-deployment",
+      "UnauthRoleName": "amplify-tealiumlabsstreaming-main-121353-unauthRole",
+      "StackName": "amplify-tealiumlabsstreaming-main-121353",
+      "StackId": "arn:aws:cloudformation:ap-northeast-1:864394539128:stack/amplify-tealiumlabsstreaming-main-121353/3e536a90-1a64-11ee-bb71-0afe466788d9",
+      "AmplifyAppId": "d2cf4ma5gjxkfz"
+    },
+    "categories": {
+      "auth": {
+        "tealiumlabsstreaming60889a36": {}
+      }
+    }
+  }
+}

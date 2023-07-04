@@ -1,0 +1,24 @@
+type LikeList @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  contentsType: String!
+  contentsId: String!
+  profileID: ID! @index(name: "byProfile")
+}
+
+type WishList @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  contentsType: String!
+  contentsId: String!
+  profileID: ID! @index(name: "byProfile")
+}
+
+type Profile @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  email: String!
+  name: String!
+  isKids: Boolean!
+  imagePath: String
+  isPrimary: Boolean
+  WishLists: [WishList] @hasMany(indexName: "byProfile", fields: ["id"])
+  LikeLists: [LikeList] @hasMany(indexName: "byProfile", fields: ["id"])
+} 
