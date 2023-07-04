@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { StyledSliderItem } from "typescript";
+// import { StyledSliderItem } from "typescript";
+import { StyledSliderItem } from "./SliderItem";
 
 export const StyledSliderWrapper = styled.div`
   ${({ zoomFactor, visibleSlides }) => `
