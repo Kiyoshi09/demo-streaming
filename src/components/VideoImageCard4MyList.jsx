@@ -26,12 +26,6 @@ const VideoImageCard4MyList = ({videoId, type, imageBaseUrl, getDetailData, imag
     videoCardContent = <Text as='p'>Error Loading...</Text>
   }
   else {
-    // console.log('detailData....');
-    console.log(detailData);
-    // console.log('imageData....');
-    // console.log(imageData);
-    console.log(`videoId : ${videoId}`);
-
     let backdrop_path = "";
     const title = detailData.title ? detailData.title : detailData.name;
     const release_date = detailData.release_date ? detailData.release_date : detailData.first_air_date;
