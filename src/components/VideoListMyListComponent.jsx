@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { View, Text } from '@aws-amplify/ui-react';
+import { View, Text, Flex } from '@aws-amplify/ui-react';
 import { QueryWishListByProfileIdApi } from '../apis/QueryWishListByIdApi';
 import VideoImageCard4MyList from './VideoImageCard4MyList';
 import { 
@@ -30,14 +30,15 @@ const VideoListMyListComponent = ({apiConfig}) => {
   }, [getWishLists])
 
   return (
-    <View>
+    <View style={{marginBottom: "200px"}}>
       <StyledViewRow>
         <StyledTextTitle as='p'>My List</StyledTextTitle>
+        <Flex direction="row" wrap="wrap" gap="1.0rem">
         {
           wishLists.filter((w) => w._version !== undefined).map((wish) => ( 
             <View key={wish.id}>
               {
-                wish.type === 'movie' ? 
+                wish.contentsType === 'movie' ? 
                   <VideoImageCard4MyList 
                     videoId={wish.contentsId} 
                     type='movie' 
@@ -59,6 +60,7 @@ const VideoListMyListComponent = ({apiConfig}) => {
             </View>
           ))
         }
+        </Flex>
       </StyledViewRow>
     </View>
   );

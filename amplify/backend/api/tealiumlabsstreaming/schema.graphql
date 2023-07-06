@@ -21,4 +21,4 @@ type Profile @model @auth(rules: [{allow: public}]) {
   isPrimary: Boolean
   WishLists: [WishList] @hasMany(indexName: "byProfile", fields: ["id"])
   LikeLists: [LikeList] @hasMany(indexName: "byProfile", fields: ["id"])
-} 
+}  
