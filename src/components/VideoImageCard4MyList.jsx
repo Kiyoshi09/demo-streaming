@@ -91,6 +91,11 @@ const StyledImageCardContent = styled(Image)`
   cursor: pointer;
   border-radius: 10px;
   box-shadow: 10px 10px 10px 1px #1f1f1f;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 
 const StyledViewErrorImageContainer = styled(View)`

@@ -13,9 +13,11 @@ import VideoListPopularComponent from "../components/VideoListPopularComponent";
 import VideoListMyListComponent from "../components/VideoListMyListComponent";
 import { useGetConfigurationQuery } from "../redux/store/store";
 import HomeFooterView from "../components/HomeFooterView";
+import VideoListSearchComponent from "../components/VideoListSearchComponent";
 
 const VideoListPage = ({ signOut, user }) => {
   const [ isSearch, setIsSearch ] = useState(false);
+  const [ searchWords, setSearchWords ] = useState('');
   const refSearchIcon = useRef(null);
   const { currentPath, navigate } = useNavigation();
   const dispatch = useDispatch();
@@ -81,6 +83,7 @@ const VideoListPage = ({ signOut, user }) => {
     contents = <>
       <VideoListHeaderComponent 
           isSearch={isSearch} 
+          searchWords={setSearchWords}
           onClickMenu={handleMenuClick} 
           refSearchIcon={refSearchIcon} 
           onSignout={handleSignOut}/> 
@@ -88,22 +91,25 @@ const VideoListPage = ({ signOut, user }) => {
         <div style={{ width: "100vh", height: "20px" }}></div>
 
         {
-          currentPath === '/auth/videolist' && <VideoListHomeComponent apiConfig={data}/>
+          !isSearch && currentPath === '/auth/videolist' && <VideoListHomeComponent apiConfig={data}/>
         }
         {
-          currentPath === '/auth/videolist/home' && <VideoListHomeComponent apiConfig={data}/>
+          !isSearch && currentPath === '/auth/videolist/home' && <VideoListHomeComponent apiConfig={data}/>
         }
         {
-          currentPath === '/auth/videolist/movie' && <VideoListMovieComponent apiConfig={data}/>
+          !isSearch && currentPath === '/auth/videolist/movie' && <VideoListMovieComponent apiConfig={data}/>
         }
         {
-          currentPath === '/auth/videolist/tv' && <VideoListTvComponent apiConfig={data}/>
+          !isSearch && currentPath === '/auth/videolist/tv' && <VideoListTvComponent apiConfig={data}/>
         }
         {
-          currentPath === '/auth/videolist/new' && <VideoListPopularComponent apiConfig={data}/>
+          !isSearch && currentPath === '/auth/videolist/new' && <VideoListPopularComponent apiConfig={data}/>
         }
         {
-          currentPath === '/auth/videolist/mylist' && <VideoListMyListComponent apiConfig={data}/>
+          !isSearch && currentPath === '/auth/videolist/mylist' && <VideoListMyListComponent apiConfig={data}/>
+        }
+        {
+          isSearch && <VideoListSearchComponent searchWords={searchWords} /> 
         }
         <HomeFooterView 
             height={{ base: "90vh", small: "70vh", medium: "60vh", xl: "50vh", xxl: "50vh"}}
