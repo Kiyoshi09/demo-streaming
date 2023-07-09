@@ -9,12 +9,13 @@ const AuthenticatedContainer = ({ signOut, user }) => {
   const userprofile = useSelector((state) => {
     return state.userprofile;
   });
+  const keywordRef = {value: ''};
 
   return (
     <div>
       {
         currentPath === '/auth' ? <ProfilePage signOut={signOut} user={user} /> 
-                                      : userprofile.profileName === "" ? <ProfilePage signOut={signOut} user={user} /> : <VideoListPage signOut={signOut} user={user} />
+                                      : userprofile.profileName === "" ? <ProfilePage signOut={signOut} user={user} /> : <VideoListPage signOut={signOut} user={user} keywordRef={keywordRef}/>
       }
     </div>
   );

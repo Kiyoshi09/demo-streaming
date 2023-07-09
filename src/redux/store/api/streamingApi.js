@@ -386,6 +386,22 @@ const streamingApi = createApi({
     }
   }),
 
+  // Multi search
+  multiSearch: builder.query({
+    query: (keyword) => {
+      return {
+        url: '/search/multi',
+        method: 'GET',
+        params: {
+          api_key: API_KEY,
+          language: "en-US",
+          page: 1,
+          query: keyword
+        }
+      }
+    }
+  }),
+
 
   })
 });
@@ -416,6 +432,7 @@ export const {
   useGetTvReleased2023Query,
   useGetTvActionAdventureQuery,
   useGetTvDramaQuery,
+  useMultiSearchQuery,
 } = streamingApi;
 
 export { streamingApi };

@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import SearchBoxComponent2 from "./SearchBoxComponent2";
 import { AccountMenuComponent } from "./AccountMenuComponent";
 
-const VideoListHeaderComponent = ({ isSearch, searchWords, onClickMenu, refSearchIcon, onSignout }) => {
+const VideoListHeaderComponent = ({ isSearch, searchWords, keywordRef, onClickMenu, refSearchIcon, onSignout }) => {
   const [ isHeaderFixed, setIsHeaderFixed ] = useState(false);
 
   const userprofile = useSelector((state) => {
@@ -75,7 +75,7 @@ const handleScroll = () => {
           <StyledHeaderItem4>
             <StyledViewSearchArea ref={refSearchIcon}>
               {
-                isSearch === false ? <StyledIconSearch /> : <SearchBoxComponent2 searchWords={searchWords} />
+                isSearch === false ? <StyledIconSearch /> : <SearchBoxComponent2 searchWords={searchWords} keywordRef={keywordRef}/>
               }
             </StyledViewSearchArea>
           </StyledHeaderItem4>

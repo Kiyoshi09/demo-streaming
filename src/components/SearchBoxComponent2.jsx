@@ -2,24 +2,23 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { SearchField } from '@aws-amplify/ui-react';
 
-const SearchBoxComponent2 = ({searchWords}) => {
+const SearchBoxComponent2 = ({searchWords, keywordRef}) => {
   const [keyword, setKeyword] = useState('');
 
   const handleChange = (event) => {
-    console.log(`${event.target.value}`);
     setKeyword(event.target.value);
   }
 
   const handleClear = () => {
-    console.log(`keyword clear`);
-
     setKeyword('');
     searchWords('');
+    keywordRef.value = '';
   }
 
   const handleKeydown = (key) => {
     if(key === 'Enter') {
       searchWords(keyword);
+      keywordRef.value = keyword;
     }
   }
 

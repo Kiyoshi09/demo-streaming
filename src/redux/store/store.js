@@ -42,4 +42,5 @@ export {
   useGetTvReleased2023Query,
   useGetTvActionAdventureQuery,
   useGetTvDramaQuery,
+  useMultiSearchQuery,
 } from './api/streamingApi';

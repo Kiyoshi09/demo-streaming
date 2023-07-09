@@ -15,7 +15,7 @@ import { useGetConfigurationQuery } from "../redux/store/store";
 import HomeFooterView from "../components/HomeFooterView";
 import VideoListSearchComponent from "../components/VideoListSearchComponent";
 
-const VideoListPage = ({ signOut, user }) => {
+const VideoListPage = ({ signOut, user, keywordRef }) => {
   const [ isSearch, setIsSearch ] = useState(false);
   const [ searchWords, setSearchWords ] = useState('');
   const refSearchIcon = useRef(null);
@@ -33,7 +33,6 @@ const VideoListPage = ({ signOut, user }) => {
     }
   }, [])
 
-
   useEffect(() => {
     const el = refSearchIcon.current;
     if (!el) return;
@@ -41,7 +40,12 @@ const VideoListPage = ({ signOut, user }) => {
     const handleClickOutsideSearchIcon = (e) => {
       if (!el?.contains(e.target)) {
         // Outside
-        setIsSearch(false);
+        if(keywordRef.value === '') {
+          setIsSearch(false);
+        }
+        else {
+          setIsSearch(true);
+        }
       }
       else {
         // Inside
@@ -84,6 +88,7 @@ const VideoListPage = ({ signOut, user }) => {
       <VideoListHeaderComponent 
           isSearch={isSearch} 
           searchWords={setSearchWords}
+          keywordRef={keywordRef}
           onClickMenu={handleMenuClick} 
           refSearchIcon={refSearchIcon} 
           onSignout={handleSignOut}/> 
@@ -109,7 +114,7 @@ const VideoListPage = ({ signOut, user }) => {
           !isSearch && currentPath === '/auth/videolist/mylist' && <VideoListMyListComponent apiConfig={data}/>
         }
         {
-          isSearch && <VideoListSearchComponent searchWords={searchWords} /> 
+          isSearch && <VideoListSearchComponent apiConfig={data} searchWords={searchWords}/> 
         }
         <HomeFooterView 
             height={{ base: "90vh", small: "70vh", medium: "60vh", xl: "50vh", xxl: "50vh"}}

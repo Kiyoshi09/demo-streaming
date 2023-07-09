@@ -42,36 +42,57 @@ const VideoImageCard4MyList = ({videoId, type, imageBaseUrl, getDetailData, imag
     if(backdrop_path) {
       backdrop_path = imageBaseUrl + 'original' + backdrop_path;
       videoCardContent = <StyledImageCardContent alt='video' src={backdrop_path} onClick={handleClick}/>
-    }
-    else {
-      videoCardContent = <StyledViewErrorImageContainer>
-                          <StyledImageErrorCardContent 
-                            alt='error video' 
-                            src="https://www.kiyotaro.cloud/images/no_image_yoko.jpg" />
-                          <StyledTextErrorImageTitle>{title}</StyledTextErrorImageTitle>
-                        </StyledViewErrorImageContainer>
-    }
 
-    let genres = [];
-    if(!isDetailDataFetching && !detailDataError) {
-      if(detailData?.genres) {
-        genres = detailData.genres;
+      let genres = [];
+      if(!isDetailDataFetching && !detailDataError) {
+        if(detailData?.genres) {
+          genres = detailData.genres;
+        }
       }
+    
+      modal = <Modal 
+                      onClose={handleClose} 
+                      trailerQuery={trailerQuery}
+                      videoId={videoId}
+                      title={title}
+                      vote_average={detailData.vote_average}
+                      vote_count={detailData.vote_count}
+                      release_date={release_date}
+                      popularity={detailData.popularity}
+                      overview={detailData.overview}
+                      genres={genres}
+                      type={type}
+                    />
     }
+    // else {
+    //   videoCardContent = <StyledViewErrorImageContainer>
+    //                       <StyledImageErrorCardContent 
+    //                         alt='error video' 
+    //                         src="https://www.kiyotaro.cloud/images/no_image_yoko.jpg" />
+    //                       <StyledTextErrorImageTitle>{title}</StyledTextErrorImageTitle>
+    //                     </StyledViewErrorImageContainer>
+    // }
+
+    // let genres = [];
+    // if(!isDetailDataFetching && !detailDataError) {
+    //   if(detailData?.genres) {
+    //     genres = detailData.genres;
+    //   }
+    // }
   
-    modal = <Modal 
-                    onClose={handleClose} 
-                    trailerQuery={trailerQuery}
-                    videoId={videoId}
-                    title={title}
-                    vote_average={detailData.vote_average}
-                    vote_count={detailData.vote_count}
-                    release_date={release_date}
-                    popularity={detailData.popularity}
-                    overview={detailData.overview}
-                    genres={genres}
-                    type={type}
-                  />
+    // modal = <Modal 
+    //                 onClose={handleClose} 
+    //                 trailerQuery={trailerQuery}
+    //                 videoId={videoId}
+    //                 title={title}
+    //                 vote_average={detailData.vote_average}
+    //                 vote_count={detailData.vote_count}
+    //                 release_date={release_date}
+    //                 popularity={detailData.popularity}
+    //                 overview={detailData.overview}
+    //                 genres={genres}
+    //                 type={type}
+    //               />
   }
 
   return (
