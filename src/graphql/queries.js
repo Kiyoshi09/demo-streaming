@@ -1,73 +1,182 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getTodo = /* GraphQL */ `
-  query GetTodo($id: ID!) {
-    getTodo(id: $id) {
+export const getLikeList = /* GraphQL */ `
+  query GetLikeList($id: ID!) {
+    getLikeList(id: $id) {
+      id
+      contentsType
+      contentsId
+      profileID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listLikeLists = /* GraphQL */ `
+  query ListLikeLists(
+    $filter: ModelLikeListFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listLikeLists(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        contentsType
+        contentsId
+        profileID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const likeListsByProfileID = /* GraphQL */ `
+  query LikeListsByProfileID(
+    $profileID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelLikeListFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    likeListsByProfileID(
+      profileID: $profileID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        contentsType
+        contentsId
+        profileID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getWishList = /* GraphQL */ `
+  query GetWishList($id: ID!) {
+    getWishList(id: $id) {
+      id
+      contentsType
+      contentsId
+      profileID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listWishLists = /* GraphQL */ `
+  query ListWishLists(
+    $filter: ModelWishListFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listWishLists(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        contentsType
+        contentsId
+        profileID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const wishListsByProfileID = /* GraphQL */ `
+  query WishListsByProfileID(
+    $profileID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelWishListFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    wishListsByProfileID(
+      profileID: $profileID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        contentsType
+        contentsId
+        profileID
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getProfile = /* GraphQL */ `
+  query GetProfile($id: ID!) {
+    getProfile(id: $id) {
       id
       email
       name
       isKids
       imagePath
+      isPrimary
+      WishLists {
+        items {
+          id
+          contentsType
+          contentsId
+          profileID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      LikeLists {
+        items {
+          id
+          contentsType
+          contentsId
+          profileID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
-export const listTodos = /* GraphQL */ `
-  query ListTodos(
-    $filter: ModelTodoFilterInput
+export const listProfiles = /* GraphQL */ `
+  query ListProfiles(
+    $filter: ModelProfileFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listTodos(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listProfiles(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         email
         name
         isKids
         imagePath
+        isPrimary
+        WishLists {
+          nextToken
+        }
+        LikeLists {
+          nextToken
+        }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncTodos = /* GraphQL */ `
-  query SyncTodos(
-    $filter: ModelTodoFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncTodos(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        email
-        name
-        isKids
-        imagePath
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      nextToken
-      startedAt
     }
   }
 `;

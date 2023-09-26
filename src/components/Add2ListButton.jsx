@@ -3,29 +3,31 @@ import styled from 'styled-components';
 import { Button } from '@aws-amplify/ui-react';
 import { AiFillPlusCircle, AiFillCheckCircle } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
-import { SaveWishListApi } from '../apis/SaveWishListApi';
-import { QueryWishListApi } from '../apis/QueryWishListApi';
-import { DeleteWishListApi } from '../apis/DeleteWishListApi';
+// import { SaveWishListApi } from '../apis/SaveWishListApi';
+// import { QueryWishListApi } from '../apis/QueryWishListApi';
+// import { DeleteWishListApi } from '../apis/DeleteWishListApi';
 
 const Add2ListButton = ({ videoId, contentsType }) => {
-  const [ addedList, setAddedList ] = useState(false);
+  const [addedList, setAddedList] = useState(false);
   const userprofile = useSelector((state) => {
     return state.userprofile;
   });
 
   const isAddedList = useCallback(async () => {
-    const wishList = await QueryWishListApi({
-      profileId: userprofile.id,
-      videoId
-    });
+    const wishList = [];
 
-    if(wishList.length === 0) {
+    //** GraphQL の処理に変更する **
+
+    // const wishList = await QueryWishListApi({
+    //   profileId: userprofile.id,
+    //   videoId
+    // });
+
+    if (wishList.length === 0) {
       setAddedList(false);
-    }
-    else {
+    } else {
       setAddedList(true);
     }
-
   }, [userprofile.id, videoId]);
 
   useEffect(() => {
@@ -33,41 +35,48 @@ const Add2ListButton = ({ videoId, contentsType }) => {
   }, [isAddedList]);
 
   const handleClick = async (event) => {
-    if(event.metaKey || event.ctrlKey) {
+    if (event.metaKey || event.ctrlKey) {
       return;
     }
 
     event.preventDefault();
 
-    if(addedList) {
-      // 削除
-      await DeleteWishListApi({
-        "profileId": userprofile.id,
-        videoId
-      });
-    }
-    else {
-      // 追加
-      await SaveWishListApi({
-        "profileId": userprofile.id,
-        videoId,
-        contentsType
-      });
+    if (addedList) {
+      //** GraphQL のｈ処理に変更する **/
+      // // 削除
+      // await DeleteWishListApi({
+      //   "profileId": userprofile.id,
+      //   videoId
+      // });
+    } else {
+      //** GraphQL のｈ処理に変更する **/
+      // // 追加
+      // await SaveWishListApi({
+      //   "profileId": userprofile.id,
+      //   videoId,
+      //   contentsType
+      // });
     }
 
     setAddedList(!addedList);
-  }
+  };
 
   return (
     <StyledButton onClick={handleClick}>
-      {
-        addedList ? <><AiFillCheckCircle size={20} /><StyledSpan>Added</StyledSpan></> : 
-                      <><AiFillPlusCircle size={20} /><StyledSpan>My List</StyledSpan></>
-      }
-      
+      {addedList ? (
+        <>
+          <AiFillCheckCircle size={20} />
+          <StyledSpan>Added</StyledSpan>
+        </>
+      ) : (
+        <>
+          <AiFillPlusCircle size={20} />
+          <StyledSpan>My List</StyledSpan>
+        </>
+      )}
     </StyledButton>
   );
-}
+};
 
 export default Add2ListButton;
 

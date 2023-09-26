@@ -1,60 +1,210 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createTodo = /* GraphQL */ `
-  mutation CreateTodo(
-    $input: CreateTodoInput!
-    $condition: ModelTodoConditionInput
+export const createLikeList = /* GraphQL */ `
+  mutation CreateLikeList(
+    $input: CreateLikeListInput!
+    $condition: ModelLikeListConditionInput
   ) {
-    createTodo(input: $input, condition: $condition) {
+    createLikeList(input: $input, condition: $condition) {
       id
-      email
-      name
-      isKids
-      imagePath
+      contentsType
+      contentsId
+      profileID
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
-export const updateTodo = /* GraphQL */ `
-  mutation UpdateTodo(
-    $input: UpdateTodoInput!
-    $condition: ModelTodoConditionInput
+export const updateLikeList = /* GraphQL */ `
+  mutation UpdateLikeList(
+    $input: UpdateLikeListInput!
+    $condition: ModelLikeListConditionInput
   ) {
-    updateTodo(input: $input, condition: $condition) {
+    updateLikeList(input: $input, condition: $condition) {
       id
-      email
-      name
-      isKids
-      imagePath
+      contentsType
+      contentsId
+      profileID
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
-export const deleteTodo = /* GraphQL */ `
-  mutation DeleteTodo(
-    $input: DeleteTodoInput!
-    $condition: ModelTodoConditionInput
+export const deleteLikeList = /* GraphQL */ `
+  mutation DeleteLikeList(
+    $input: DeleteLikeListInput!
+    $condition: ModelLikeListConditionInput
   ) {
-    deleteTodo(input: $input, condition: $condition) {
+    deleteLikeList(input: $input, condition: $condition) {
+      id
+      contentsType
+      contentsId
+      profileID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createWishList = /* GraphQL */ `
+  mutation CreateWishList(
+    $input: CreateWishListInput!
+    $condition: ModelWishListConditionInput
+  ) {
+    createWishList(input: $input, condition: $condition) {
+      id
+      contentsType
+      contentsId
+      profileID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateWishList = /* GraphQL */ `
+  mutation UpdateWishList(
+    $input: UpdateWishListInput!
+    $condition: ModelWishListConditionInput
+  ) {
+    updateWishList(input: $input, condition: $condition) {
+      id
+      contentsType
+      contentsId
+      profileID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteWishList = /* GraphQL */ `
+  mutation DeleteWishList(
+    $input: DeleteWishListInput!
+    $condition: ModelWishListConditionInput
+  ) {
+    deleteWishList(input: $input, condition: $condition) {
+      id
+      contentsType
+      contentsId
+      profileID
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createProfile = /* GraphQL */ `
+  mutation CreateProfile(
+    $input: CreateProfileInput!
+    $condition: ModelProfileConditionInput
+  ) {
+    createProfile(input: $input, condition: $condition) {
       id
       email
       name
       isKids
       imagePath
+      isPrimary
+      WishLists {
+        items {
+          id
+          contentsType
+          contentsId
+          profileID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      LikeLists {
+        items {
+          id
+          contentsType
+          contentsId
+          profileID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
+    }
+  }
+`;
+export const updateProfile = /* GraphQL */ `
+  mutation UpdateProfile(
+    $input: UpdateProfileInput!
+    $condition: ModelProfileConditionInput
+  ) {
+    updateProfile(input: $input, condition: $condition) {
+      id
+      email
+      name
+      isKids
+      imagePath
+      isPrimary
+      WishLists {
+        items {
+          id
+          contentsType
+          contentsId
+          profileID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      LikeLists {
+        items {
+          id
+          contentsType
+          contentsId
+          profileID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteProfile = /* GraphQL */ `
+  mutation DeleteProfile(
+    $input: DeleteProfileInput!
+    $condition: ModelProfileConditionInput
+  ) {
+    deleteProfile(input: $input, condition: $condition) {
+      id
+      email
+      name
+      isKids
+      imagePath
+      isPrimary
+      WishLists {
+        items {
+          id
+          contentsType
+          contentsId
+          profileID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      LikeLists {
+        items {
+          id
+          contentsType
+          contentsId
+          profileID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
     }
   }
 `;

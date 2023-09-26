@@ -3,23 +3,19 @@ import styled from 'styled-components';
 import { Flex, View, Text, Image, Button } from '@aws-amplify/ui-react';
 import { TbTrashX } from 'react-icons/tb';
 import { MdOutlineDoNotDisturbAlt } from 'react-icons/md';
-
-import { SaveProfileApi } from '../apis/SaveProfileApi';
-import { QueryProfileByEmailApi } from '../apis/QueryProfileByEmailApi';
-
+// import { SaveProfileApi } from '../apis/SaveProfileApi';
+// import { QueryProfileByEmailApi } from '../apis/QueryProfileByEmailApi';
 import useNavigation from '../hooks/use-navigation';
 import useToggle from '../hooks/use-toggle';
 import AddProfileComponent from '../components/AddProfileComponent';
-import { DeleteProfileByNameApi } from '../apis/DeleteProfileByNameApi';
+// import { DeleteProfileByNameApi } from '../apis/DeleteProfileByNameApi';
 
 import { useDispatch } from 'react-redux';
 import { setEmail, setProfileId, setProfileName, setIsKids } from '../redux/userprofileSlice';
 
-
 const ProfilePage = ({ signOut, user }) => {
-
   const { navigate } = useNavigation();
-  const [ profiles, setProfiles ] = useState([]);
+  const [profiles, setProfiles] = useState([]);
   const { state: screenState, toggle: toggleScreen } = useToggle();
   const { state: isManageProfileMode, toggle: toggleIsManageProfieMode } = useToggle(false);
 
@@ -30,27 +26,34 @@ const ProfilePage = ({ signOut, user }) => {
     const bodyElm = document.getElementsByTagName('body')[0];
     bodyElm.style.backgroundColor = 'black';
 
-    return () => { bodyElm.style.backgroundColor = 'white' }
-  }, [])
+    return () => {
+      bodyElm.style.backgroundColor = 'white';
+    };
+  }, []);
 
   // Retrieve all profiles under the email
-  const profileData = useCallback(async() => {
+  const profileData = useCallback(async () => {
     const email = user.attributes.email;
-    let a = await QueryProfileByEmailApi(email);
 
-    if (Object.keys(a).length === 0) {
-      await SaveProfileApi({
-        email,
-        name: user.attributes.email.split('@')[0],
-        isKids: false,
-        isPrimary: true,
-      });
+    // email が既に Profile テーブルにあるか確認し、
+    // なければ、Profile テーブルに登録する
 
-      a = await QueryProfileByEmailApi(email);
-    }
+    // ** GraphQL の処理に変更する **
+    // let a = await QueryProfileByEmailApi(email);
+    // if (Object.keys(a).length === 0) {
+    //   await SaveProfileApi({
+    //     email,
+    //     name: user.attributes.email.split('@')[0],
+    //     isKids: false,
+    //     isPrimary: true,
+    //   });
 
-    setProfiles(a);
-  }, [user.attributes.email])
+    //   a = await QueryProfileByEmailApi(email);
+    // }
+
+    // GraphQL の処理を追加したら有効化する
+    //setProfiles(a);
+  }, [user.attributes.email]);
 
   useEffect(() => {
     profileData();
@@ -58,7 +61,7 @@ const ProfilePage = ({ signOut, user }) => {
 
   // EventHandler : Move to VideoList
   const handleClick = (event, to, id, name, isKids) => {
-    if(event.metaKey || event.ctrlKey) {
+    if (event.metaKey || event.ctrlKey) {
       return;
     }
 
@@ -70,118 +73,103 @@ const ProfilePage = ({ signOut, user }) => {
     dispatch(setIsKids(isKids));
 
     navigate({ to });
-  }
+  };
 
   // EventHandler : Delete a profile
   const handleClickDeleteProfile = async (event, name, isPrimary) => {
-    if(isPrimary) {
+    if (isPrimary) {
       return;
     }
 
-    if(event.metaKey || event.ctrlKey) {
+    if (event.metaKey || event.ctrlKey) {
       return;
     }
 
     event.preventDefault();
 
-    await DeleteProfileByNameApi(user.attributes.email, name);
+    // ** GraphQL の処理に変更する **
+    // プロファイルを削除
+    //await DeleteProfileByNameApi(user.attributes.email, name);
+    // ｓプロファイルを取得する
+    //const a = await QueryProfileByEmailApi(user.attributes.email);
 
-    const a = await QueryProfileByEmailApi(user.attributes.email);
-    setProfiles(a);
-  }
+    // GraphQL の処理を追加したら有効化する
+    //setProfiles(a);
+  };
 
   // EventHandler : Add a profile
   const handleClickAddProfile = (event, profileName, state) => {
     toggleScreen();
 
-    (async() => {
+    (async () => {
       const email = user.attributes.email;
 
-      await SaveProfileApi({
-        email,
-        name: profileName,
-        isKids: state,
-        isPrimary: false,
-      });
+      // ** GraphQL の処理に変更する **
+      // await SaveProfileApi({
+      //   email,
+      //   name: profileName,
+      //   isKids: state,
+      //   isPrimary: false,
+      // });
 
-      const a = await QueryProfileByEmailApi(email);
-      setProfiles(a);
+      // const a = await QueryProfileByEmailApi(email);
+
+      // GraphQL の処理を追加したら有効化する
+      //setProfiles(a);
     })();
-  }
+  };
 
   // EventHandler : Switch the screen between Who's watching and Manage Profile
   const handleClickSwitchScreen = () => {
     toggleScreen();
-  }
+  };
 
   // EventHandler : Switch the screen between Edit and normal mode in Manage Profile
   const handleSwitchManageProfileMode = () => {
     toggleIsManageProfieMode();
-  }
+  };
 
   return (
-      <StyledViewContainer>
-        {
-          screenState === true && 
-          <Flex direction="column" alignItems="center">
-              <StyledTextHeading0>
-                {
-                  isManageProfileMode === false ? "Who's watching ?" : "Remove Profile :"
-                }
-              </StyledTextHeading0>
-              <StyledFlexProfileContainer
-                direction={{ base: 'column', small: 'row'}}
-                wrap={{ base: 'wrap', large: 'nowrap' }}
-                justifyContent="center"
-                alignItems="center">
+    <StyledViewContainer>
+      {screenState === true && (
+        <Flex direction="column" alignItems="center">
+          <StyledTextHeading0>{isManageProfileMode === false ? "Who's watching ?" : 'Remove Profile :'}</StyledTextHeading0>
+          <StyledFlexProfileContainer direction={{ base: 'column', small: 'row' }} wrap={{ base: 'wrap', large: 'nowrap' }} justifyContent="center" alignItems="center">
+            {profiles.map((profile) => {
+              return (
+                <StyledViewProfile
+                  key={profile.id}
+                  onClick={(event) => {
+                    if (isManageProfileMode === false) {
+                      return handleClick(event, '/auth/videolist', profile.id, profile.name, profile.isKids);
+                    } else {
+                      return handleClickDeleteProfile(event, profile.name, profile.isPrimary);
+                    }
+                  }}
+                >
+                  {profile.isKids === true ? <Image alt="profile" src="https://www.kiyotaro.cloud/images/tealium_beast.png" width="100%" /> : <Image alt="profile" src="https://www.kiyotaro.cloud/images/tealium-logo-small.jpeg" width="100%" />}
+                  <StyledTextHeading6 width="100%">{profile.name}</StyledTextHeading6>
+                  {isManageProfileMode === true && profile.isPrimary === false && <StyledIconRemove />}
+                  {isManageProfileMode === true && profile.isPrimary === true && <StyledIconDoNotRemove />}
+                </StyledViewProfile>
+              );
+            })}
 
-                  {
-                    profiles.map((profile) => {
-                      return (
-                        <StyledViewProfile 
-                          key={profile.id} 
-                          onClick={(event) => { 
-                                                  if(isManageProfileMode === false){ return handleClick(event, '/auth/videolist', profile.id, profile.name, profile.isKids) }
-                                                  else{ return handleClickDeleteProfile(event, profile.name, profile.isPrimary); }
-                                                }}>
-                          {
-                            profile.isKids === true ? <Image alt='profile' src='https://www.kiyotaro.cloud/images/tealium_beast.png' width='100%' /> 
-                                                                  : <Image alt='profile' src='https://www.kiyotaro.cloud/images/tealium-logo-small.jpeg' width='100%' />
-                          }
-                          <StyledTextHeading6 width='100%'>{profile.name}</StyledTextHeading6>
-                          {
-                            isManageProfileMode === true && profile.isPrimary === false && <StyledIconRemove />
-                          }
-                          {
-                            isManageProfileMode === true && profile.isPrimary === true && <StyledIconDoNotRemove />
-                          }
-                        </StyledViewProfile>
-                      )
-                    })
-                  }
-
-                  {
-                    isManageProfileMode === false && 
-                      <StyledViewProfileAdd onClick={handleClickSwitchScreen}>
-                        <Image alt='add profile' src='https://www.kiyotaro.cloud/images/arrow.png' width='100%' />
-                      </StyledViewProfileAdd>
-                  }
-              </StyledFlexProfileContainer>
-              <Button size={{ base: 'small', medium: 'medium', large: 'large'}} variation='primary' onClick={ handleSwitchManageProfileMode }> 
-                  {
-                    isManageProfileMode === false ? "Manage Profiles" : "Done"
-                  }
-              </Button>
-          </Flex>
-        }
-        {
-          screenState === false &&
-          <AddProfileComponent handleClickAddProfile={handleClickAddProfile} handleClickSwitchScreen={handleClickSwitchScreen} />
-        }
-        
-      </StyledViewContainer>
+            {isManageProfileMode === false && (
+              <StyledViewProfileAdd onClick={handleClickSwitchScreen}>
+                <Image alt="add profile" src="https://www.kiyotaro.cloud/images/arrow.png" width="100%" />
+              </StyledViewProfileAdd>
+            )}
+          </StyledFlexProfileContainer>
+          <Button size={{ base: 'small', medium: 'medium', large: 'large' }} variation="primary" onClick={handleSwitchManageProfileMode}>
+            {isManageProfileMode === false ? 'Manage Profiles' : 'Done'}
+          </Button>
+        </Flex>
+      )}
+      {screenState === false && <AddProfileComponent handleClickAddProfile={handleClickAddProfile} handleClickSwitchScreen={handleClickSwitchScreen} />}
+    </StyledViewContainer>
   );
-}
+};
 
 export default ProfilePage;
 
@@ -221,7 +209,7 @@ const StyledTextHeading0 = styled(Text)`
 const StyledFlexProfileContainer = styled(Flex)`
   margin-block: 30px 30px;
   margin-inline: 30% 30%;
-`
+`;
 
 const StyledTextHeading6 = styled(Text)`
   font-size: 18px;
